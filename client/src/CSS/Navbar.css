@@ -1,0 +1,205 @@
+/* Navbar */
+
+.navbar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0px;
+  z-index: 10;
+  background-color: #ff8400;
+  color: #f6f1e9;
+  width: 100%;
+  height: 50px;
+}
+  
+.navbarLinks{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-left: 5%;
+  height: 50px;
+}
+
+.navbarLinksMenu{
+  display: flex;
+}
+
+.navbarLinksNavigate{
+  /* display: flex; */
+  align-items: center;
+}
+
+.reactIcon{
+  display: none;
+}
+
+#explore{
+  font-size: 19px;
+}
+
+.navbarLinks a{
+  all: unset;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  padding: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+  
+.logo{
+  margin: 0 30px !important;
+  height: 40px !important;
+  padding: 0px !important;
+}
+.logo img{
+  width: 40px;
+}
+
+/* For a div containing noti icon and doginfo */
+.navbarSecondaryInfo{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-right: 5%;
+}
+
+.navbarNotificationSection{
+  position: relative;
+  right: -80px;
+}
+
+.navbarDogInfo{
+  display: flex;
+  align-items: center;
+  justify-content: space-around; 
+  text-decoration: none;
+  color: #f6f1e9;  
+  height: 45px;
+}
+
+.dogPhoto{
+  scale: 0.25;
+  position: relative;
+  right: -45px;
+}
+
+.navbarLinksProfile{
+  display: none !important;
+}
+
+.navbarLinksContact{
+  display: flex;
+  align-items: center;
+}
+  
+.Hamburger {
+  display: none;
+}
+
+.enableLogout{
+  display: none !important;
+}
+  
+@media(max-width:900px) {
+  .logo{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+  .navbarLinksMenu{
+    display: flex;
+    flex-direction: column;
+    background-color: #ff8400;
+    position: absolute;
+    top: 50px;
+    left: -300px;
+    height: 70vh;
+    width: 200px;
+    padding-left: 5%;
+    padding-bottom: 30vh;
+    justify-content: space-evenly;
+    transition: 0.6s all ease-in-out;
+  }
+
+  .navbarLinksProfile, .navbarLinksContact{
+    display: flex !important;
+  }
+
+  .navbarLinksMenu a{
+    font-size: 25px;
+  }
+
+  .navbarLinksMenuShow{
+    left: 0px;
+  }
+
+  .navbarDogInfo h2{
+    font-weight: 500;
+  }
+
+  .Hamburger{
+    display: block;
+    z-index: 2;
+    margin-left: 5%;
+    cursor: pointer;
+  }
+
+  .bar{
+    display: block;
+    height: 2.5px;
+    width: 25px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: #f6f1e9;
+    transition: 0.4s;
+  }
+  .barOne{
+    rotate: -45deg;
+    position: relative;
+    top: 7px;
+    transition: 0.4s;
+  }
+  .barTwo{
+    display: none;
+  }
+  .barThree{
+    position: relative;
+    rotate: 45deg;
+    transition: 0.4s;
+  }
+
+  .reactIcon{
+    font-size:25px;
+    display: block;
+  }
+  #explore{
+    font-size: 25px;
+  }
+
+  .enableLogout{
+    display: flex !important;
+    position: absolute !important;
+    bottom: 50px !important;
+    font-size: 15px !important;
+    left: 120px !important;
+  }
+
+}
+
+@media(max-width:600px){
+  .bar{
+    width: 20px;
+  }
+  .logo{
+    width: 30px;
+    left: 15%;
+    top: 5px;
+  }
+  .navbarDogInfo h2{
+    display: none;
+  }
+
+}
