@@ -5,7 +5,6 @@ import { MdContentCopy } from 'react-icons/md';
 import html2canvas from 'html2canvas';
 import {jsPDF }from 'jspdf';
 
-
 const Share=({show})=>{
     const[copyText, setCopyText]=useState("Copy link")
 
@@ -18,7 +17,7 @@ const Share=({show})=>{
     }
 
     const handleSave=()=>{
-        const card=document.querySelector('.footer-container');
+        const card=document.querySelector('.vaccinationWrapper');
         html2canvas(card).then((canvas)=>{
             const data = canvas.toDataURL('img/png');
             const doc = new jsPDF('p', 'mm', 'a4');

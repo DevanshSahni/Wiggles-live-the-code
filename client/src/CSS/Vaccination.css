@@ -3,7 +3,21 @@
     margin: auto;
     margin-top: 100px;
     width: 45%;
+    position: relative;
     min-width: 520px;
+}
+.shareIconContainer{
+    position: absolute;
+    right: -20px;
+    top:-20px;
+    height: 20px;
+    width: 20px;
+    font-size:20px;
+    cursor:pointer;
+    padding: 15px;
+    border-radius: 50%;
+    background-color: white;
+    z-index: 1;
 }
 .headerContainer{
     display: flex;
@@ -87,12 +101,10 @@
     box-shadow: 2px 4px #3C2A21;
 }
 
-table{
+.vaccinationContainer table{
     width: 100%;
 }
-table,th,td,tr{
-    border:1px solid black;
-    border-collapse: collapse;
+.vaccinationContainer table,th,td,tr{
     padding: 10px 0px;
     text-align: center;
     font-size: 15px;
@@ -113,4 +125,48 @@ td{
 
 .HealthInfoContainer input:disabled{
     border-bottom: none;
+}
+
+.addVaccinationForm{
+    padding:10px;
+}
+.addVaccinationForm td input{
+    width: 70%;
+    overflow: hidden;
+    border: none;
+    border-bottom: 1px solid #3C2A21;
+    text-align: center;
+}
+.addVaccinationForm input:focus-visible{
+    outline: none;
+}
+
+
+/* ShareVaccination */
+.sharePannel{
+    position: absolute;
+    top: 10px;
+    right: -180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 20px;
+    width: 150px;
+    text-align: center;
+    padding: 20px;
+    transition: all 0.3s ease-in-out;
+    background-color:rgba(214, 214, 214, 0.379);
+}
+
+.sharePannel div{
+    background-color: #ffffffa8;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;  
+}
+.sharePannel a, .sharePannel button{
+    all: unset;
 }
