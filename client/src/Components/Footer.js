@@ -19,7 +19,7 @@ export default function Footer() {
 
   const logout = () => {
     deleteCookies();
-    navigate("/login");
+    navigate("/Login");
   };
 
   return (
