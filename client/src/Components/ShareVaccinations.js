@@ -29,7 +29,7 @@ const Share=({show})=>{
     }
 
     return(
-        <div className='sharePannel' style={{opacity: show ? "1":"0"}}>
+        <div className='sharePannel' style={{display: show ? "flex":"none"}}>
             <button type='button' title="Copy" onClick={handleCopyLink}>
                 <div>
                     <MdContentCopy/> &nbsp; {copyText}
