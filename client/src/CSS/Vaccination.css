@@ -4,7 +4,7 @@
     margin-top: 100px;
     width: 45%;
     position: relative;
-    min-width: 500px;
+    min-width: 520px;
 }
 .shareIconContainer{
     position: absolute;
@@ -52,6 +52,7 @@
     font-weight: 600;
 }
 .healthInfoWrapper{
+    position: relative;
     background-color: white;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     padding: 35px 50px;
@@ -112,6 +113,20 @@
 td{
     max-width: 60px;
 }
+
+.HealthInfoContainer input{
+    all: unset;
+    width: 100px;
+    padding: 0px 5px;
+    margin: 0px 5px;
+    color: #3C2A21;
+    border-bottom: #3C2A21 solid 1px;
+}
+
+.HealthInfoContainer input:disabled{
+    border-bottom: none;
+}
+
 .addVaccinationForm{
     padding:10px;
 }
