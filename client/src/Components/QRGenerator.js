@@ -5,12 +5,16 @@ import Navbar from "../Components/Navbar";
 import ReactSwitch from "react-switch";
 import "../CSS/QRGenerator.css";
 import Logo from "../images/wigglesLogo.png";
+import { IoCloseSharp } from "react-icons/io5";
 
 export default function QRGenerator() {
   const [cookies] = useCookies();
   const userID = cookies.userID;
   const [checked, setChecked] = useState(false);
-
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const toggleFullScreen = () => {
+    setIsFullScreen(!isFullScreen);
+  };
   const [name, setName] = useState("");
   const [contactNumber,setContactNumber] = useState("")
   const [alternateNumber,setAlternateNumber] = useState("")
@@ -129,12 +133,12 @@ export default function QRGenerator() {
                     onChange={handleChange}
                     onColor="#fed3a3"
                     onHandleColor="#ff8400"
-                    handleDiameter={25}
+                    handleDiameter={30}
                     uncheckedIcon={false}
                     checkedIcon={false}
                     boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
                     activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                    height={18}
+                    height={20}
                     width={48}
                     className="react-switch"
                     id="material-switch"
@@ -143,7 +147,7 @@ export default function QRGenerator() {
               </div>              
 
               <div className="msgForm">
-                <label id="contactno" >
+                <label id="contactno">
                   <input
                     className="inputField"
                     type="number"
@@ -155,7 +159,7 @@ export default function QRGenerator() {
                     }}
                   />
                 </label>
-                <label id="alternateContactno" >
+                <label id="alternateContactno">
                   <input
                     className="inputField"
                     type="number"
@@ -167,7 +171,7 @@ export default function QRGenerator() {
                     }}
                   />
                 </label>
-                <label id="message" >
+                <label id="message">
                   <textarea
                     className="inputField"
                     id="textarea"
@@ -197,13 +201,7 @@ export default function QRGenerator() {
               <div className="userName">{name}</div>
 
               <div
-                className="userQR"
-                // style={{
-                //   height: "auto",
-                //   margin: "0 auto",
-                //   maxWidth: 64,
-                //   width: "100%",
-                // }}
+                className={`userQR ${isFullScreen ? "fullScreen" : ""}`}
               >
                 <QRCodeCanvas 
                   id="qrCodeEl"
@@ -213,15 +211,19 @@ export default function QRGenerator() {
                   viewBox={`0 0 256 256`}
                   className="qrImg"
                 />
+                {isFullScreen && (
+                  <button className="closeButton" onClick={toggleFullScreen}>
+                    <IoCloseSharp />
+                  </button>
+                )}
               </div>
               <div className="infoTxt">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Aspernatur voluptates facilis quae ad id ratione.
+                Download this QR Code and attach it anywhere. Let your friends
+                know your name &#59;-&#41;
               </div>
               <div className="viewSaveBtn">
-
-                <button className="btn viewQR">View QR</button>
-                <button className="btn downloadQR"  onClick={downloadQRCode}>Save QR</button>
+                <button className="btn viewQR" onClick={toggleFullScreen}>View QR</button>
+                <button className="btn downloadQR" onClick={downloadQRCode}>Save QR</button> 
               </div>
             </div>
           </div>
