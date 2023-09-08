@@ -154,7 +154,62 @@ color: #ff8400;
   padding-bottom: 3px;
   border-radius: 10px;
   background-color: #fff;
+  position: relative;
 }
+
+.qrImg {
+    max-width: 100%;
+  max-height: 100%;
+  transition: all 0.5s ease-in-out;
+}
+
+.fullScreen .qrImg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    z-index: 999;
+    background: #ffffff38;
+    backdrop-filter: blur(30px);
+    padding: 80px;
+  }
+
+  .closeButton {
+    position: fixed;
+    top: 30px;
+    right: 40px;
+    z-index: 1000;
+    /* background-color: #fff; */
+    /* border: 1px solid #ccc; */
+    /* padding: 10px 20px; */
+    /* cursor: pointer; */
+
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+    font-size: xx-large;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .closeButton:hover {
+    scale: 1.15;
+}
+
+  .viewQR {
+    /* margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer; */
+  }
+
+  .viewQR:hover {
+    /* background-color: #0056b3; */
+  }
 
 .infoTxt {
     font-size: 12px;
@@ -196,15 +251,15 @@ color: #ff8400;
         white-space: nowrap;
     }
 
-    .messageTitle .lostPet {
+    /* .messageTitle .lostPet {
         position: relative;
         top: 42px;
-    }
-    .messageTitle .lostPet span {
+    } */
+    /* .messageTitle .lostPet span {
         font-size: 15px;
         margin-right: 8px;
         white-space: nowrap;
-    }
+    } */
 }
 
 @media (max-width: 735px) {
@@ -222,13 +277,13 @@ color: #ff8400;
     }
 
     .messageTitle h2 {
-        font-size: 30px;
-        padding-top: 20px;
+        /* font-size: 40px; */
+        padding-top: 10px;
     }
 
-    .messageTitle .lostPet {
+    /* .messageTitle .lostPet {
         top: 5px;
-    }
+    } */
 
     .qrContainerRight{
         max-width: 100%;
