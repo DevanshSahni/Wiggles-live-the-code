@@ -1,22 +1,9 @@
 import React, { useState } from 'react';
-import '../CSS/Share.css';
-import { BsShareFill, BsSave, BsWhatsapp } from 'react-icons/bs';
+import '../CSS/Vaccination.css';
+import { BsSave, BsWhatsapp } from 'react-icons/bs';
 import { MdContentCopy } from 'react-icons/md';
 import html2canvas from 'html2canvas';
 import {jsPDF }from 'jspdf';
-
-const Vaccination = () => {
-    const[show, setShow]=useState(0);
-
-  return (
-    <div style={{minHeight:"60vh", margin:"10vh"}}>
-        <BsShareFill style={{fontSize:"50px", cursor:"pointer"}} onClick={()=>show?setShow(0):setShow(1)}/>
-        <Share show={show}/>
-    </div>
-  )
-}
-
-export default Vaccination
 
 const Share=({show})=>{
     const[copyText, setCopyText]=useState("Copy link")
@@ -30,7 +17,7 @@ const Share=({show})=>{
     }
 
     const handleSave=()=>{
-        const card=document.querySelector('.footer-container');
+        const card=document.querySelector('.vaccinationWrapper');
         html2canvas(card).then((canvas)=>{
             const data = canvas.toDataURL('img/png');
             const doc = new jsPDF('p', 'mm', 'a4');
@@ -61,3 +48,5 @@ const Share=({show})=>{
         </div>
     )
 }
+
+export default Share;
