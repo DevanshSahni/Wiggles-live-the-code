@@ -6,13 +6,14 @@ import Logo from "../images/wigglesLogo.png"
 import { BsShareFill } from 'react-icons/bs'
 import { useCookies } from 'react-cookie'
 import { toast } from 'react-toastify'
+import {AiOutlineCheck, AiOutlineEdit, AiOutlineFileDone, AiOutlinePlus, AiOutlineSave} from "react-icons/ai"
 
 const Vaccination = () => {
     const[show, setShow]=useState(0);
     const[cookies]=useCookies();
     const userID= cookies.userID;
     const[petName, setPetName]=useState("");
-    const[height, setHeight]=useState("");
+    const[breed, setBreed]=useState("");
     const[weight, setWeight]=useState("");
     const[allergies, setAllergies]=useState("");
     const[conditions, setConditions]=useState("");
@@ -29,6 +30,7 @@ const Vaccination = () => {
     const[inactive, setInactive]=useState(true);
     const[addVaccination,setAddVaccination]=useState(false);
     const[editbtn, setEditbtn]=useState("Edit");
+    const[editIcon,setEditIcon]=useState("0")
 
     useEffect(()=>{
         document.querySelector(".vaccinationContainer").addEventListener("click", (e)=>e.stopPropagation());
@@ -51,7 +53,7 @@ const Vaccination = () => {
             const data= await response.json();
 
             setPetName(data.foundUser.name);
-            setHeight(data.foundUser.height);
+            setBreed(data.foundUser.breed);
             setWeight(data.foundUser.weight);
             setAllergies(data.foundUser.allergies);
             setConditions(data.foundUser.conditions);
@@ -67,14 +69,15 @@ const Vaccination = () => {
         e.preventDefault();
         if(editbtn==="Edit"){
             setInactive(false);
-            setEditbtn("Submit") 
+            setEditbtn("Save") 
+            setEditIcon(!editIcon);
             return;
         }
         const response= await fetch("http://localhost:3001/updateProfile",{
             method:"POST",
             body: JSON.stringify({
                 name:petName,
-                height,
+                breed,
                 weight,
                 allergies,
                 conditions,
@@ -97,6 +100,8 @@ const Vaccination = () => {
         toast.success("Successfully updated!");
         setInactive(true);
         setEditbtn("Edit")
+        setEditIcon(!editIcon);
+        
     }
 
     document.addEventListener("click", ()=>setAddVaccination(false));
@@ -137,9 +142,9 @@ const Vaccination = () => {
 
     return (
     <>
-        <Navbar/>
-        <div className='vaccinationWrapper'>
-        <div className="shareIconContainer" onClick={()=>show ? setShow(0):setShow(1)}><BsShareFill className="shareIcon"/></div>
+    <Navbar/>
+    <div className='vaccinationWrapper'>
+        <div className="shareIconContainer" onClick={()=>show ? setShow(0):setShow(1)} ><BsShareFill className='shareIcon'/></div>
         <ShareVaccination show={show}/>
             <div className='headerContainer'>
                 <div className='logoInfoContainer'>
@@ -149,7 +154,7 @@ const Vaccination = () => {
                 <h1>PET HEALTH RECORD</h1>
             </div>
             <div className='healthInfoWrapper'>
-                <button className='editButton' id='addVaccination' onClick={handleEdit}>{editbtn}</button>
+                <button id='addVaccination' className='editButton' onClick={handleEdit}> { editIcon ? <AiOutlineEdit className='editIcon'/> : <AiOutlineSave className='editIcon'/> }&nbsp;{editbtn}</button>
                 <div className='HealthInfoContainer'>
                     <h1>Pet's name: 
                         <input 
@@ -160,22 +165,26 @@ const Vaccination = () => {
                         />
                     </h1>
                     <div className='dogHealthInfo'>
-                        <h1>Height: 
+                        <h1>Breed: 
                             <input 
                                 disabled={inactive}
-                                type="number" 
-                                value={height}
-                                onChange={(e)=>{setHeight(e.target.value)}}
+                                type="text" 
+                                value={breed}
+                                onChange={(e)=>{setBreed(e.target.value)}}
                             />
                         </h1>
+                        <div className='dogWeight'>
                         <h1>Weight: 
                             <input 
                                 disabled={inactive}
                                 type="number" 
                                 value={weight}
                                 onChange={(e)=>{setWeight(e.target.value)}}
+                                placeholder="kg"
                             />
                         </h1>
+                        <h1>{(weight > 0)? "kg" : ""}</h1>
+                        </div>
                         <h1>Allergies:
                             <input 
                                 disabled={inactive}
@@ -226,7 +235,7 @@ const Vaccination = () => {
                 <div className='vaccinationContainer'>
                     <div className='vaccinationInfoPrimary'>
                         <h1>Vaccinations</h1>
-                        <button id="addVaccination" form="vaccinationForm">{addVaccination ? "Save" : "Add +"}</button>
+                        <button id="addVaccination" form="vaccinationForm" onClick={handleClick}>{addVaccination ? <AiOutlineSave className='addIcon'/> :<AiOutlinePlus className='addIcon'/>}&nbsp;{addVaccination ? "Save" : "Add"} </button>  
                     </div>
                     <form name="Vaccination Form" id="vaccinationForm" onSubmit={handleAddVaccine} ></form>
                     <table className='vaccinationTable'>
