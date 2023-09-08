@@ -8,7 +8,7 @@ const Home = () => {
     useEffect(()=>{
         const verifyCookie = async () => {
             if (!cookies.token) {
-              navigate("/login");
+              navigate("/Login");
             }
             const response = await fetch('http://localhost:3001/',{
                 method:"POST",
