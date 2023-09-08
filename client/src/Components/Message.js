@@ -2,6 +2,8 @@ import React, { useEffect,useState } from "react";
 import "../CSS/Message.css";
 import Logo from "../images/wigglesLogo.png";
 import { useCookies } from "react-cookie";
+import {FiPhoneCall} from "react-icons/fi";
+
 
 export default function Message() {
   const [cookies] = useCookies();
