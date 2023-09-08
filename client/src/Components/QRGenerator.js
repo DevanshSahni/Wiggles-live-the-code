@@ -19,6 +19,8 @@ export default function QRGenerator() {
   const [contactNumber,setContactNumber] = useState("")
   const [alternateNumber,setAlternateNumber] = useState("")
   const [message,setMessage] = useState("")
+  const [image, setImage] = useState("");
+
 
   const handleChange = (val) => {
     setChecked(val);
@@ -41,6 +43,7 @@ export default function QRGenerator() {
       let data = await response.json();
       if (data.status === "ok") {
         setName(data.foundUser.name);
+        setImage(data.foundUser.image);
       } 
     }catch(err){
       console.log(err)
@@ -186,18 +189,18 @@ export default function QRGenerator() {
                   />
                 </label>
 
-                <button className="uploadMsg" type="submit">
+                <button className="uploadMsg" type="submit" onClick={handleSubmit}>
                   Submit
+                  </button>                 
+                  {/* <button className="btn uploadMsg" type="submit">
+                Upload Message */}
 
-//                 <button className="btn uploadMsg" type="submit">
-//                   Upload Message
-
-                </button>
+                
               </div>
             </form>
             <div className="qrContainerRight">
 
-              <img src={Logo} alt="Profile Image" className="userImg" />
+              <img src={image} alt="Profile Image" className="userImg" />
               <div className="userName">{name}</div>
 
               <div
