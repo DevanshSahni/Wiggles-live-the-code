@@ -6,9 +6,9 @@ module.exports.profileData = async(req,res)=>{
 
   const foundUser=await ProfileModel.findOne({_id:userID});
   if(foundUser)
-      res.json({status:"ok", foundUser});
+    res.json({status:"ok", foundUser});
   else{
-      res.json({status: "fail"});
+    res.json({status: "fail"});
   }
 }
 
@@ -16,7 +16,7 @@ module.exports.profileData = async(req,res)=>{
 module.exports.UpdateProfile = async(req,res) =>{
   try {
     const { name, dob, bio, breed, gender, address } = req.body;
-
+    const {height, weight, allergies, conditions, vetName, vetNumber, vetaddress} = req.body;
     // const imageFilePath = req.file.path;
     // const cldRes = await handleUpload(imageFilePath);
     const userID = req.cookies.userID;
@@ -28,6 +28,13 @@ module.exports.UpdateProfile = async(req,res) =>{
       gender,
       bio,
       address,
+      height, 
+      weight, 
+      allergies, 
+      conditions, 
+      vetName, 
+      vetNumber, 
+      vetaddress
       // image: cldRes.secure_url
     };
 
