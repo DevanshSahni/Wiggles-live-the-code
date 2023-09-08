@@ -1,5 +1,12 @@
 const mongoose = require ("mongoose");
 
+const VaccinationSchema= new mongoose.Schema({
+    name:{type:String},
+    batchNumber:{type: Number},
+    date:{type: Date},
+    dueDate:{type:Date},
+})
+
 const ProfileSchema = new mongoose.Schema({
     name:{type:String,required:true},
     dob:{type:Date},
@@ -12,6 +19,14 @@ const ProfileSchema = new mongoose.Schema({
     bio:{type: String},
     dueDate:{type: Date},
     address: {type: String},
+    height: {type: Number},
+    weight: {type: Number},
+    allergies: {type: String},
+    conditions: {type: String},
+    vetName: {type: String},
+    vetNumber: {type: Number},
+    vetaddress: {type: String},
+    vaccinations: [{type: VaccinationSchema}]
 }) 
 
 const ProfileModel = mongoose.model("profile",ProfileSchema)

@@ -119,12 +119,11 @@ export default function QRGenerator() {
         <Navbar />
         <div className="qrGeneratorWindow">
           <div className="qrGeneratorContainer">
-            <div className="msgContainerLeft">
-              <div className="qrGeneratorHeader">Wiggles</div>
+            <form className="msgContainerLeft">
               <div className="messageTitle">
-                <h2>Message</h2>
+                <h2>Lost Pet?</h2>
                 <div className="lostPet">
-                  <span>Pet lost?</span>
+                  {/* <span>Pet lost?</span> */}
                   <ReactSwitch
                     checked={checked}
                     onChange={handleChange}
@@ -141,8 +140,9 @@ export default function QRGenerator() {
                     id="material-switch"
                   />
                 </div>
-              </div>
-              <form action="" className="msgForm" onSubmit={handleSubmit}>
+              </div>              
+
+              <div className="msgForm">
                 <label id="contactno" >
                   <input
                     className="inputField"
@@ -184,20 +184,26 @@ export default function QRGenerator() {
 
                 <button className="uploadMsg" type="submit">
                   Submit
+
+//                 <button className="btn uploadMsg" type="submit">
+//                   Upload Message
+
                 </button>
-              </form>
-            </div>
+              </div>
+            </form>
             <div className="qrContainerRight">
-              <div className="userImg"></div>
+
+              <img src={Logo} alt="Profile Image" className="userImg" />
               <div className="userName">{name}</div>
+
               <div
                 className="userQR"
-                style={{
-                  height: "auto",
-                  margin: "0 auto",
-                  maxWidth: 64,
-                  width: "100%",
-                }}
+                // style={{
+                //   height: "auto",
+                //   margin: "0 auto",
+                //   maxWidth: 64,
+                //   width: "100%",
+                // }}
               >
                 <QRCodeCanvas 
                   id="qrCodeEl"
@@ -205,6 +211,7 @@ export default function QRGenerator() {
                   style={{ height: "auto", maxWidth: "100%", width: "100%" }}
                   value={"http://localhost:3000/lost/" + userID}
                   viewBox={`0 0 256 256`}
+                  className="qrImg"
                 />
               </div>
               <div className="infoTxt">
@@ -212,8 +219,9 @@ export default function QRGenerator() {
                 Aspernatur voluptates facilis quae ad id ratione.
               </div>
               <div className="viewSaveBtn">
-                <button className="viewQR">View QR</button>
-                <button className="downloadQR" onClick={downloadQRCode}>Save QR</button>
+
+                <button className="btn viewQR">View QR</button>
+                <button className="btn downloadQR"  onClick={downloadQRCode}>Save QR</button>
               </div>
             </div>
           </div>
