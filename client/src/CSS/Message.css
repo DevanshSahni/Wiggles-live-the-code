@@ -1,0 +1,36 @@
+*{
+    box-sizing: border-box;
+}
+
+.msgWindow {
+    width: 100vw;
+    /* height: 100vh; */
+}
+
+.msgCard {
+    width: 350px;
+    height: 500px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 80px;
+}
+
+.logoInfoContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.logoInfoContainer img{
+    height: 40px;
+    width: 40px;
+    padding: 5px;
+}
+.logoInfoContainer h3{
+    margin: 0;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 600;
+    font-family: 'Shantell Sans', cursive;
+}
