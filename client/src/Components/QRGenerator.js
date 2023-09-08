@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import QRCode from "react-qr-code";
+import React, { useEffect, useState } from "react";
+import {QRCodeCanvas } from 'qrcode.react';
 import { useCookies } from "react-cookie";
 import Navbar from "../Components/Navbar";
 import ReactSwitch from "react-switch";
@@ -11,9 +11,107 @@ export default function QRGenerator() {
   const userID = cookies.userID;
   const [checked, setChecked] = useState(false);
 
+  const [name, setName] = useState("");
+  const [contactNumber,setContactNumber] = useState("")
+  const [alternateNumber,setAlternateNumber] = useState("")
+  const [message,setMessage] = useState("")
+
   const handleChange = (val) => {
     setChecked(val);
   };
+
+  useEffect(()=>{
+    
+      const fetchData = async () => {
+        try{
+        const response = await fetch("http://localhost:3001/profiledata", {
+        method: "POST",
+        body: JSON.stringify({
+          userID,
+        }),
+        credentials: "include",
+        headers: {
+          "Content-type": "application/json",
+        },
+      })
+      let data = await response.json();
+      if (data.status === "ok") {
+        setName(data.foundUser.name);
+      } 
+    }catch(err){
+      console.log(err)
+    }
+    
+  };
+  fetchData();
+
+  },[userID])
+
+  useEffect(()=>{
+    const fetchData = async() =>{
+      try{
+        const response = await fetch("http://localhost:3001/qrData", {
+        method: "POST",
+        body: JSON.stringify({
+          userID,
+        }),
+        credentials: "include",
+        headers: {
+          "Content-type": "application/json",
+        },
+      })
+      let data = await response.json();
+      if (data.status === "ok") {
+        setContactNumber(data.foundUser.contactNumber);
+        setAlternateNumber(data.foundUser.alternateNumber);
+        setMessage(data.foundUser.message)
+      } 
+    }catch(err){
+      console.log(err)
+    }
+    };
+    fetchData();
+  },[userID])
+
+
+  const handleSubmit = async (event) =>{
+    event.preventDefault();
+
+    try{
+    
+        const response = await fetch("http://localhost:3001/qr-code",{
+          method:"POST",
+          body: JSON.stringify({
+            contactNumber,
+            alternateNumber,
+            message,
+          }),
+          credentials: "include",
+          headers: {
+            "Content-type": "application/json",
+          },
+        })
+  
+        console.log(response);
+        const data = await response.json();
+      
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  const downloadQRCode = () => {
+    const qrCodeURL = document.getElementById('qrCodeEl')
+      .toDataURL("image/png")
+      .replace("image/png", "image/octet-stream");
+    console.log(qrCodeURL)
+    let aEl = document.createElement("a");
+    aEl.href = qrCodeURL;
+    aEl.download = "QR_Code.png";
+    document.body.appendChild(aEl);
+    aEl.click();
+    document.body.removeChild(aEl);
+  }
 
   return (
     { userID } && (
@@ -42,14 +140,19 @@ export default function QRGenerator() {
                     id="material-switch"
                   />
                 </div>
-              </div>
+              </div>              
+
               <div className="msgForm">
                 <label id="contactno" >
                   <input
                     className="inputField"
                     type="number"
                     name="contact no"
+                    value={contactNumber}
                     placeholder="Contact Number"
+                    onChange = {(event)=>{
+                      setContactNumber(event.target.value)
+                    }}
                   />
                 </label>
                 <label id="alternateContactno" >
@@ -57,7 +160,11 @@ export default function QRGenerator() {
                     className="inputField"
                     type="number"
                     name="contact no"
+                    value={alternateNumber}
                     placeholder="Alternate Contact Number"
+                    onChange = {(event)=>{
+                      setAlternateNumber(event.target.value)
+                    }}
                   />
                 </label>
                 <label id="message" >
@@ -66,19 +173,29 @@ export default function QRGenerator() {
                     id="textarea"
                     type="text"
                     name="message"
+                    value={message}
                     rows={7}
                     placeholder="Drop your message here."
+                    onChange = {(event)=>{
+                      setMessage(event.target.value)
+                    }}
                   />
                 </label>
 
-                <button className="btn uploadMsg" type="submit">
-                  Upload Message
+                <button className="uploadMsg" type="submit">
+                  Submit
+
+//                 <button className="btn uploadMsg" type="submit">
+//                   Upload Message
+
                 </button>
               </div>
             </form>
             <div className="qrContainerRight">
+
               <img src={Logo} alt="Profile Image" className="userImg" />
-              <div className="userName">Gooffy</div>
+              <div className="userName">{name}</div>
+
               <div
                 className="userQR"
                 // style={{
@@ -88,7 +205,8 @@ export default function QRGenerator() {
                 //   width: "100%",
                 // }}
               >
-                <QRCode
+                <QRCodeCanvas 
+                  id="qrCodeEl"
                   size={256}
                   style={{ height: "auto", maxWidth: "100%", width: "100%" }}
                   value={"http://localhost:3000/lost/" + userID}
@@ -101,8 +219,9 @@ export default function QRGenerator() {
                 Aspernatur voluptates facilis quae ad id ratione.
               </div>
               <div className="viewSaveBtn">
+
                 <button className="btn viewQR">View QR</button>
-                <button className="btn downloadQR">Save QR</button>
+                <button className="btn downloadQR"  onClick={downloadQRCode}>Save QR</button>
               </div>
             </div>
           </div>
@@ -111,3 +230,4 @@ export default function QRGenerator() {
     )
   );
 }
+ 

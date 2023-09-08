@@ -110,7 +110,7 @@ module.exports.SecondaryRegister= async(req,res) =>{
       vaccinated,
       image: cldRes.secure_url,
       bio,  
-      id: userID,
+      id: userID, 
     });
     await newProfile.save();
 

@@ -98,6 +98,7 @@ const Navbar = () => {
                 <CgProfile className="reactIcon" />&nbsp;Profile              
             </Link>
             <Link to="/Vaccination">Vaccination</Link>
+            {/* <Link to="/GenerateQR">QR Code</Link> */}
             <Link className="enableLogout" onClick={logout}><TbLogout/>&nbsp;Logout</Link>
           </div>
         </div>
