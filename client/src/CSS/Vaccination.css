@@ -1,0 +1,101 @@
+.vaccinationWrapper{
+    min-height: 800px;
+    margin: auto;
+    margin-top: 100px;
+    width: 45%;
+}
+.headerContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #FFD93D;
+    padding: 5px 15px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.logoInfoContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.headerContainer div img{
+    height: 40px;
+    width: 40px;
+    padding: 5px;
+}
+.headerContainer div h3{
+    margin: 0;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 600;
+    font-family: 'Shantell Sans', cursive;
+}
+.headerContainer h1{
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+}
+.healthInfoWrapper{
+    background-color: white;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 35px 50px;
+    min-height: 400px;
+}
+.HealthInfoContainer{
+    margin-bottom: 50px;
+}
+.HealthInfoContainer h1, .vaccinationInfoPrimary h1{
+    font-size: 15px;
+    font-weight: 650;
+}
+.dogHealthInfo, .vetInfo{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.vaccinationContainer{
+    margin: -10px -20px;
+    padding: 10px 20px;
+    box-shadow: 2px 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.vaccinationInfoPrimary{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+#addVaccination{
+    all: unset;
+    cursor: pointer;
+    background-color: #3C2A21;
+    text-align: center;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    color: #f6f1e9;
+    font-size: 13px;
+    font-weight: 550;
+}
+#addVaccination:hover{
+    transition: all 0.2s;
+    background-color: #f6f1e9;
+    color: #3C2A21;
+    box-shadow: 2px 4px #3C2A21;
+}
+
+table{
+    width: 100%;
+}
+table,th,td,tr{
+    border:1px solid black;
+    border-collapse: collapse;
+    padding: 10px 0px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 650;
+}
+td{
+    max-width: 60px;
+}
