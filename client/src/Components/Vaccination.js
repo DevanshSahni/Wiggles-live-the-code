@@ -19,11 +19,19 @@ const Vaccination = () => {
     const[vetName, setVetName]=useState("");
     const[vetNumber, setVetNumber]=useState("");
     const[vetAddress, setVetAddress]=useState("");
+    const[vaccinations, setVaccinations]=useState([]);
+    const[visit, setVisit]=useState({
+        name:"",
+        batchNumber: null,
+        date: null,
+        dueDate: null,
+    });
     const[inactive, setInactive]=useState(true);
     const[addVaccination,setAddVaccination]=useState(false);
     const[editbtn, setEditbtn]=useState("Edit");
 
     useEffect(()=>{
+        document.querySelector(".vaccinationContainer").addEventListener("click", (e)=>e.stopPropagation());
         const handleContent=async()=>{
             const response= await fetch("http://localhost:3001/profiledata",{
                 method:"POST",
@@ -50,9 +58,10 @@ const Vaccination = () => {
             setVetName(data.foundUser.vetName);
             setVetNumber(data.foundUser.vetNumber);
             setVetAddress(data.foundUser.vetAddress);
+            setVaccinations(data.foundUser.vaccinations);
         }
         handleContent();
-    }, []);
+    }, [addVaccination]);
 
     const handleEdit=async(e)=>{
         e.preventDefault();
@@ -90,19 +99,47 @@ const Vaccination = () => {
         setEditbtn("Edit")
     }
 
-    const handleClick = () =>{
-        setAddVaccination(!addVaccination);
-    }
-    const handleAddVaccine =(e)=>{
+    document.addEventListener("click", ()=>setAddVaccination(false));
+
+    const handleAddVaccine =async(e)=>{
         e.preventDefault();
-        console.log("hi im working");
+        e.stopPropagation();
+        if(!addVaccination){
+            setAddVaccination(!addVaccination);
+            return;
+        }
+        const response= await fetch("http://localhost:3001/updateVaccinations",{
+            method:"POST",
+            body: JSON.stringify({
+                visit,
+            }),
+            credentials:"include",
+            headers:{
+                "Content-type": "application/json",
+            }
+        })
+
+        if(!response.ok){
+            toast.error("Please refresh");
+            return;
+        }
+        const data= await response.json();
+
+        toast.success("Successfully updated!");
+        setAddVaccination(!addVaccination);
+        setVisit({
+            name:"",
+            batchNumber: null,
+            date: null,
+            dueDate: null,
+        });
     }
 
-return (
+    return (
     <>
         <Navbar/>
         <div className='vaccinationWrapper'>
-        <div className="shareIconContainer"><BsShareFill className="shareIcon" onClick={()=>show ? setShow(0):setShow(1)}/></div>
+        <div className="shareIconContainer" onClick={()=>show ? setShow(0):setShow(1)}><BsShareFill className="shareIcon"/></div>
         <ShareVaccination show={show}/>
             <div className='headerContainer'>
                 <div className='logoInfoContainer'>
@@ -112,7 +149,7 @@ return (
                 <h1>PET HEALTH RECORD</h1>
             </div>
             <div className='healthInfoWrapper'>
-                <button id='addVaccination' onClick={handleEdit}>{editbtn}</button>
+                <button className='editButton' id='addVaccination' onClick={handleEdit}>{editbtn}</button>
                 <div className='HealthInfoContainer'>
                     <h1>Pet's name: 
                         <input 
@@ -189,10 +226,10 @@ return (
                 <div className='vaccinationContainer'>
                     <div className='vaccinationInfoPrimary'>
                         <h1>Vaccinations</h1>
-                        <button id="addVaccination" form="vaccinationForm" onClick={handleClick}>{addVaccination ? "Save" : "Add +"}</button>
+                        <button id="addVaccination" form="vaccinationForm">{addVaccination ? "Save" : "Add +"}</button>
                     </div>
-                    <form id="vaccinationForm" onSubmit={handleAddVaccine}></form>
-                    <table>
+                    <form name="Vaccination Form" id="vaccinationForm" onSubmit={handleAddVaccine} ></form>
+                    <table className='vaccinationTable'>
                         <tr>
                         <th>Name</th>
                         <th>Batch Number</th>
@@ -201,19 +238,28 @@ return (
                         </tr>
                         {addVaccination && 
                         <tr className='addVaccinationForm'>
-                                <td><input type="text" placeholder="Name" form="vaccinationForm" /></td>
-                                <td><input type="text" placeholder="Batch number" form="vaccinationForm"/></td>
-                                <td><input  placeholder="Date" form="vaccinationForm"/></td>
-                                <td><input  placeholder="Next Visit" form="vaccinationForm"/></td>
+                            <td><input required type="text" placeholder="Name" form="vaccinationForm" value={visit.name} onChange={(e)=>setVisit((visit)=>({...visit, name:e.target.value}))}/></td>
+                            <td><input required type="number" placeholder="Batch number" form="vaccinationForm" value={visit.batchNumber} onChange={(e)=>setVisit((visit)=>({...visit, batchNumber:e.target.value}))}/></td>
+                            <td><input required type='date' placeholder="Date" form="vaccinationForm" value={visit.date} onChange={(e)=>setVisit((visit)=>({...visit, date:e.target.value}))}/></td>
+                            <td><input required type='date' placeholder="Next Visit" form="vaccinationForm" value={visit.dueDate} onChange={(e)=>setVisit((visit)=>({...visit, dueDate:e.target.value}))}/></td>
                         </tr>
                         }
+                        {vaccinations && 
+                            vaccinations.map((vaccination)=>(
+                                <tr>
+                                <td>{vaccination.name}</td>
+                                <td>{vaccination.batchNumber}</td>
+                                <td>{vaccination.date.slice(0,10)}</td>
+                                <td>{vaccination.dueDate.slice(0,10)}</td>
+                                </tr>
+                            ))
+                        }   
                     </table>
                 </div>
             </div>
         </div>
-
     </>
-  )
+    )
 }
 
 export default Vaccination
