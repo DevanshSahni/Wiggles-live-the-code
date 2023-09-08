@@ -6,9 +6,11 @@ import Register from "./Components/Register";
 import SecondaryRegister from "./Components/SecondaryRegister";
 import Profile from "./Components/Profile";
 import EditProfile from "./Components/EditProfile";
+import Vaccination from "./Components/Vaccination"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from "./Components/Footer";
+import QRGenerator from "./Components/QRGenerator";
 
 function App() { 
   const location=useLocation();
@@ -26,6 +28,8 @@ function App() {
         <Route path= "/SecondaryRegister" element={<SecondaryRegister/>}/> 
         <Route path="/Profile" element={<Profile/> }/>
         <Route path="/EditProfile" element={<EditProfile/> }/>
+        <Route path="/GenerateQR" element={<QRGenerator/> }/>
+        <Route path="/Vaccination" element={<Vaccination/>} />
       </Routes>
       <Footer/>
       <ToastContainer/> 
