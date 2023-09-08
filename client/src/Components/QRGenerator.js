@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import QRCode from "react-qr-code";
-import QRCode from 'qrcode.react';
+import {QRCodeCanvas } from 'qrcode.react';
 import { useCookies } from "react-cookie";
 import Navbar from "../Components/Navbar";
 import ReactSwitch from "react-switch";
@@ -200,7 +199,7 @@ export default function QRGenerator() {
                   width: "100%",
                 }}
               >
-                <QRCode
+                <QRCodeCanvas 
                   id="qrCodeEl"
                   size={256}
                   style={{ height: "auto", maxWidth: "100%", width: "100%" }}
