@@ -9,7 +9,11 @@ require("dotenv").config();
 const app=express();
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin : ["https://wiggles-live-the-code.vercel.app"],
+    methods : ["GET", "POST"],
+    credentials: true
+}));
 
 mongoose.connect(
     `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.zp5s7d6.mongodb.net/wiggles`
