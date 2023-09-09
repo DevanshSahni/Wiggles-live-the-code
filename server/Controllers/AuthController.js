@@ -27,11 +27,15 @@ module.exports.Login = async (req, res, next)=>{
               maxAge:1000*60*60*24*3, 
               withCredentials: true,
               httpOnly: false,
+              secure: true,
+              sameSite:'none',
           });
           res.cookie("userID",foundUser._id,{
               maxAge:1000*60*60*24*3, 
               withCredentials: true,
               httpOnly: false,
+              secure: true,
+              sameSite:'none',
           });
 
           return res.json({status:'ok'});
@@ -68,6 +72,8 @@ module.exports.Register = async(req,res)=>{
     maxAge:1000*60*60*24*3, 
     withCredentials: true,
     httpOnly: false,
+    secure: true,
+    sameSite:'none',
   });
 
   const foundUser=await UserModel.findOne({email:email});
@@ -75,6 +81,8 @@ module.exports.Register = async(req,res)=>{
     maxAge:1000*60*60*24*3, 
     withCredentials: true,
     httpOnly: false,
+    secure: true,
+    sameSite:'none',
   });
 
   res.json({ status: "ok", message: "User Registered Successfully!" });
