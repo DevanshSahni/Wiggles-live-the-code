@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import {AiOutlineSetting} from "react-icons/ai"
 import "../CSS/Profile.css"
@@ -78,6 +78,7 @@ const Profile = () => {
         <h1>Age : {age}</h1>
         <h1>Address : {address} </h1>
         {/* <h1>Vaccination due on : </h1> */}
+        <Link to="/generateqr" ><button className='btn generateQR'>Generate QR</button></Link>
         <h1
             className="profileInfoEdit"
             href=""

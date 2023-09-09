@@ -248,7 +248,9 @@ const Vaccination = () => {
                 <div className='vaccinationContainer'>
                     <div className='vaccinationInfoPrimary'>
                         <h1>Vaccinations</h1>
+
                         <button id="vaccinationButton" form="vaccinationForm" style={{opacity: print ? 0:1}}>{addVaccination ? <AiOutlineSave className='addIcon'/> :<AiOutlinePlus className='addIcon'/>}&nbsp;{addVaccination ? "Save" : "Add"} </button>  
+
                     </div>
                     <form name="Vaccination Form" id="vaccinationForm" onSubmit={handleAddVaccine} ></form>
                     <table className='vaccinationTable'>
