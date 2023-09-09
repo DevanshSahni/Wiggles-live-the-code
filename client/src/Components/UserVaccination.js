@@ -72,22 +72,22 @@ const Vaccination = () => {
         </div>
         <div className='healthInfoWrapper'>
             <div className='HealthInfoContainer'>
-                <h1>Pet's name: {petName}  </h1>
+                <h1>Pet's name: <span>{petName}</span>  </h1>
                 <div className='dogHealthInfo'>
-                    <h1>Breed: {breed} </h1>
+                    <h1>Breed: <span>{breed}</span> </h1>
                     <div className='dogWeight'>
-                        <h1>Weight: {weight} </h1>
+                        <h1>Weight: <span>{weight}</span> </h1>
                         <h1>{(weight > 0)? "kg" : ""}</h1>
                     </div>
-                    <h1>Allergies: {allergies} </h1>
-                    <h1>Conditions: {conditions} </h1>
+                    <h1>Allergies: <span>{allergies}</span> </h1>
+                    <h1>Conditions: <span>{conditions}</span> </h1>
                 </div>
             </div>
             <div className='HealthInfoContainer'>
-                <h1>Veterinarian: {vetName}</h1>
+                <h1  className='vetNameInfo'>Veterinarian:<h1 className='vetHonorific'>Dr.</h1> <span>{vetName}</span></h1>
                 <div className='vetInfo'>
-                    <h1>Phone no.: {vetNumber} </h1>
-                    <h1>Address: {vetAddress} </h1>
+                    <h1>Phone no.: <span>{vetNumber}</span> </h1>
+                    <h1>Address: <span>{vetAddress}</span> </h1>
                 </div>
             </div>
             <div className='vaccinationContainer'>
