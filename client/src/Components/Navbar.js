@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import Logo from "../images/wigglesLogo.png";
 import { CgProfile } from "react-icons/cg";
 import { TbLogout,TbVaccine } from "react-icons/tb";
+import { BsQrCodeScan } from "react-icons/bs";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -88,6 +89,8 @@ const Navbar = () => {
             </Link>
             <Link to="/Vaccination">
               <TbVaccine className="reactIcon"/>&nbsp;Vaccination</Link>
+            <Link to="/generateqr">
+              <BsQrCodeScan className="reactIcon"/>&nbsp;QR Code</Link>
             {/* <Link to="/GenerateQR">QR Code</Link> */}
             <Link className="enableLogout" onClick={logout}><TbLogout/>&nbsp;Logout</Link>
           </div>
