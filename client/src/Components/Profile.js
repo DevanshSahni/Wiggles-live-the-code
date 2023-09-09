@@ -5,6 +5,7 @@ import {AiOutlineSetting} from "react-icons/ai"
 import "../CSS/Profile.css"
 import { useCookies } from 'react-cookie';
 import EditProfile from "./EditProfile";
+import { toast } from 'react-toastify'
 
 const Profile = () => {
   const [name, setName] = useState("");
@@ -23,7 +24,6 @@ const Profile = () => {
   const [authorized, setAuthorized] = useState(false);
   const navigate = useNavigate();
 
-
   useEffect(()=>{
     const fetchData = async () =>{
       const response = await fetch('http://localhost:3001/profiledata',{
@@ -36,8 +36,7 @@ const Profile = () => {
           "Content-type": "application/json",
         },
       }).catch((err) => {
-        console.log(err);
-        alert("There was an error. Kindly referesh the page.");
+        toast.error(err);
       });
       let data = await response.json();
       if (data.status === "ok") {
@@ -59,6 +58,7 @@ const Profile = () => {
       }
       else{
         navigate("/login")
+        toast.error("Please login first");
         setAuthorized(false);
       }      
     }

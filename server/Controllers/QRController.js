@@ -52,8 +52,6 @@ module.exports.QrSwitch = async(req,res) =>{
     const findMessage = await QrModel.findOne({ _id: userID });
 
     if (findMessage) {
-      console.log("if find hii")
-
       const updatedProfile = await QrModel.updateOne(
         { _id: userID },
         { $set: { switchState } },
@@ -69,7 +67,6 @@ module.exports.QrSwitch = async(req,res) =>{
 
       await Qrmessage.save();
     }
-    console.log("hiii")
     res.status(201).json({ message: "Message saved successfully" });
   } catch (error) {
     console.error(error);

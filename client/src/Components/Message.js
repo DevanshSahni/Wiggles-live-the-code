@@ -31,7 +31,7 @@ export default function Message() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("http://localhost:3001/profiledata", {
+      const response = await fetch("http://localhost:3001/userdata", {
         method: "POST",
         body: JSON.stringify({
           id,
