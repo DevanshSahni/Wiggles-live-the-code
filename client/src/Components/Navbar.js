@@ -9,11 +9,11 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "../CSS/Navbar.css";
 const Navbar = () => {
-  const [name, setName] = useState("");
   const [cookies] = useCookies();
-  const navigate = useNavigate();
-  const [image, setImage] = useState("");
   const userID = cookies.userID;
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
 
   var showMenu = () => {
     var bar = document.getElementsByClassName("bar");
@@ -23,22 +23,6 @@ const Navbar = () => {
     bar[2].classList.toggle("barThree");
     ham[0].classList.toggle("navbarLinksMenuShow");
   };
-
-  const [openNotification, setOpenNotification] = useState("false");
-  const HandleClick = () => {
-    setOpenNotification(!openNotification);
-  };
-
-  document.addEventListener("mousedown", handler);
-  function handler() {
-    setOpenNotification("false");
-  }
-
-  const notificationclick = document.getElementsByClassName("notificationIcon");
-  notificationclick[0] &&
-    notificationclick[0].addEventListener("mousedown", (event) => {
-      event.stopPropagation();
-    });
 
   function deleteCookies() {
     var allCookies = document.cookie.split(";");
@@ -64,6 +48,11 @@ const Navbar = () => {
         console.log(err);
         toast.error("There was an error. Kindly refresh the page.");
       });
+      if(response.status==401){
+        navigate("/login")
+        toast.error("Please login first");
+        return;
+      }
       let data = await response.json();
       if (data.status === "ok") {
         setName(data.foundUser.name);
