@@ -22,7 +22,8 @@ const Share=({show, print, setPrint})=>{
     const handleSave=async()=>{
         await setPrint(1);
         const card=document.querySelector('.vaccinationWrapper');
-        await html2canvas(card, {scale:"3"}).then((canvas)=>{
+
+        html2canvas(card, {scale:"3"}).then((canvas)=>{
             const data = canvas.toDataURL('img/png');
             const doc = new jsPDF('p','px');
             const docWidth= doc.internal.pageSize.getWidth();

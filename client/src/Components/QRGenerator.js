@@ -24,31 +24,28 @@ export default function QRGenerator() {
   const [alternateNumber,setAlternateNumber] = useState("")
   const [message,setMessage] = useState("")
   const [image, setImage] = useState("");
-  const [switchState,setSwitchState] = useState(false)
-  const [authorized,setAuthorized]  = useState(false)
+  const [switchState,setSwitchState] = useState(false);
+  const [authorized,setAuthorized]  = useState(false);
 
 
- const handleChange = async(newCheckedState) => {
+ const handleChange = async() => {
 
-  setChecked(newCheckedState); // Update the switch state
-  // console.log(!checked);
-  setSwitchState(!switchState)
+  setSwitchState(!switchState);
+  setChecked(switchState);
  
   try{
     
     const response = await fetch("http://localhost:3001/qrSwitch",{
       method:"POST",
       body: JSON.stringify({
-        switchState:!checked
+        switchState:checked
       }),
       credentials: "include",
       headers: {
         "Content-type": "application/json",
       },
     })
-    console.log(!switchState)
-
-    console.log(response);
+    
     const data = await response.json();
   
 }catch(err){
@@ -107,8 +104,8 @@ export default function QRGenerator() {
       if (data.status === "ok") {
         setContactNumber(data.foundUser.contactNumber);
         setAlternateNumber(data.foundUser.alternateNumber);
-        setMessage(data.foundUser.message)
-        setSwitchState(data.foundUser.switchState)
+        setMessage(data.foundUser.message);
+        setSwitchState(data.foundUser.switchState);
         // console.log(!switchState)
       } 
     }catch(err){
@@ -122,18 +119,18 @@ export default function QRGenerator() {
   const handleSubmit = async (event) =>{
     event.preventDefault();
 
-    if (!contactNumber.match(/^\d{10}$/)) {
-      toast.error("Please enter a valid 10-digit phone number.")
-      return;
-    }
-    if (!alternateNumber.match(/^\d{10}$/)) {
-      toast.error("Please enter a valid 10-digit phone number.")
-      return;
-    }
-    if(message === ""){
-      toast.error("Please enter a valid message.")
-      return;
-    }
+    // if (!contactNumber.match(/^\d{10}$/)) {
+    //   toast.error("Please enter a valid 10-digit phone number.")
+    //   return;
+    // }
+    // if (!alternateNumber.match(/^\d{10}$/)) {
+    //   toast.error("Please enter a valid 10-digit phone number.")
+    //   return;
+    // }
+    // if(message === ""){
+    //   toast.error("Please enter a valid message.")
+    //   return;
+    // }
 
     try{
     

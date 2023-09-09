@@ -12,7 +12,7 @@ module.exports.QrData = async(req,res)=>{
   }
 }
 
-
+ 
 module.exports.QrCode = async (req, res) => {
   try {
     const { message, contactNumber, alternateNumber } = req.body;
