@@ -6,11 +6,11 @@ module.exports.profileData = async(req,res)=>{
   const userID=req.cookies.userID;
   console.log(userID);
   const foundUser=await ProfileModel.findOne({_id:userID});
-  if(foundUser)
+  // if(foundUser)
     res.json({status:"ok", foundUser});
-  else{
-    res.json({status: "fail"});
-  }
+  // else{
+  //   res.json({status: "fail"});
+  // }
 }
 
 module.exports.UpdateVaccinations= async(req,res)=>{
