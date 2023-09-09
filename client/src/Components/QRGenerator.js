@@ -4,7 +4,6 @@ import { useCookies } from "react-cookie";
 import Navbar from "../Components/Navbar";
 import ReactSwitch from "react-switch";
 import "../CSS/QRGenerator.css";
-// import Logo from "../images/wigglesLogo.png";
 import { IoCloseSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
