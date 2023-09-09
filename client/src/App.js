@@ -31,7 +31,7 @@ function App() {
         <Route path="/Profile" element={<Profile/> }/>
         <Route path="/EditProfile" element={<EditProfile/> }/>
         <Route path="/GenerateQR" element={<QRGenerator/> }/>
-        <Route path="/Message/:id" element={<Message/> }/>
+        <Route path="/GenerateQR/:id" element={<Message/> }/>
         <Route path="/Vaccination" element={<Vaccination/>} />
         <Route path="/Vaccination/:id" element={<UserVaccination/>} />
       </Routes>
