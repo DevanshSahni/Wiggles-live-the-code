@@ -26,6 +26,7 @@ const Profile = () => {
 
   useEffect(()=>{
     const fetchData = async () =>{
+      console.log(userID);
       const response = await fetch('https://wiggles-live-the-code-backend.vercel.app/profiledata',{
         method:"POST",
         body:JSON.stringify({
