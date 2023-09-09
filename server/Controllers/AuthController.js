@@ -138,8 +138,7 @@ module.exports.SecondaryRegister= async(req,res) =>{
       gender,
       vaccinated,
       image: cldRes.secure_url,
-      bio,  
-      id: userID, 
+      bio,
     });
     await newProfile.save();
 
