@@ -1,12 +1,11 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../CSS/Message.css";
 
 import { useParams } from "react-router-dom";
 import Logo from "../images/wigglesLogo.png";
 
 import { useCookies } from "react-cookie";
-import {FiPhoneCall} from "react-icons/fi";
-
+import { FiPhoneCall } from "react-icons/fi";
 
 export default function Message() {
   // const [cookies] = useCookies();
@@ -15,8 +14,7 @@ export default function Message() {
   // const urlUserID = urlParams.get("id");
   const { id } = useParams();
 
-  console.log(id)
-  
+  console.log(id);
 
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
@@ -26,12 +24,10 @@ export default function Message() {
   const [image, setImage] = useState("");
   const [bio, setBio] = useState("");
   const [vaccinated, setVaccinated] = useState("");
-  const [contactNumber,setContactNumber] = useState("")
-  const [alternateNumber,setAlternateNumber] = useState("")
-  const [message,setMessage] = useState("")
-  const [switchState,setSwitchState] = useState(false)
-
-
+  const [contactNumber, setContactNumber] = useState("");
+  const [alternateNumber, setAlternateNumber] = useState("");
+  const [message, setMessage] = useState("");
+  const [switchState, setSwitchState] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,50 +53,46 @@ export default function Message() {
         // setAddress(data.foundUser.address);
         var today = new Date();
         var dob = new Date(data.foundUser.dob);
-        setDob((data.foundUser.dob).slice(0,10));
+        setDob(data.foundUser.dob.slice(0, 10));
         //subtracting in milliseconds and then converting result to years.
         var currAge = Math.floor(
-            (today.getTime() - dob.getTime()) / (1000 * 60 * 60 * 24 * 365)
-          );
-          setAge(currAge);
-        
+          (today.getTime() - dob.getTime()) / (1000 * 60 * 60 * 24 * 365)
+        );
+        setAge(currAge);
       }
     };
     fetchData();
   }, [id]);
 
-
-  useEffect(()=>{
-    const fetchData = async() =>{
-        try{
-            const response = await fetch("http://localhost:3001/qrData", {
-            method: "POST",
-            body: JSON.stringify({
-              id,
-            }),
-            credentials: "include",
-            headers: {
-              "Content-type": "application/json",
-            },
-          })
-          let data = await response.json();
-          if (data.status === "ok") {
-            setContactNumber(data.foundUser.contactNumber);
-            setAlternateNumber(data.foundUser.alternateNumber);
-            setMessage(data.foundUser.message)
-            setSwitchState(data.foundUser.switchState)
-          } 
-          console.log(data)
-        }catch(err){
-          console.log(err)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/qrData", {
+          method: "POST",
+          body: JSON.stringify({
+            id,
+          }),
+          credentials: "include",
+          headers: {
+            "Content-type": "application/json",
+          },
+        });
+        let data = await response.json();
+        if (data.status === "ok") {
+          setContactNumber(data.foundUser.contactNumber);
+          setAlternateNumber(data.foundUser.alternateNumber);
+          setMessage(data.foundUser.message);
+          setSwitchState(data.foundUser.switchState);
         }
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
     };
     fetchData();
-  },[id])
+  }, [id]);
 
-  useEffect(()=>{
-
-  },[])
+  useEffect(() => {}, []);
 
   console.log(switchState);
   return (
@@ -108,36 +100,62 @@ export default function Message() {
       <div className="msgCard">
         <div className="header">
           <div className="logoInfoContainer">
-
             <h3>Wiggles</h3>
           </div>
-          
-          <div style = {{display: `${switchState? 'initial' : 'none'}`}} className="status">Lost</div>
+
+          <div
+            style={{ display: `${switchState ? "initial" : "none"}` }}
+            className="status"
+          >
+            Lost
+          </div>
         </div>
         <div className="profileImg">
-          <img src={image} alt="Profile Image" className="userImg profilePicture" />
+          <img
+            src={image}
+            alt="Profile Image"
+            className="userImg profilePicture"
+          />
         </div>
         <div className="petName">{name}</div>
-        <div className="petInfoPrimary">{gender}&nbsp;|&nbsp;{age} years</div>
+        <div className="petInfoPrimary">
+          {gender}&nbsp;|&nbsp;{age} years
+        </div>
 
-        <div style = {{display: `${switchState? 'initial' : 'none'}`}} className="msgByOwner">
-
+        <div
+          style={{ display: `${switchState ? "block" : "none"}` }}
+          className="msgByOwner"
+        >
           {message}
         </div>
         <div className="petInfoSecondary">
-          <div style = {{display: `${switchState? 'none' : 'initial'}`}} className="bio">
+          <div
+            style={{ display: `${switchState ? "none" : "initial"}` }}
+            className="bio"
+          >
             {bio}
           </div>
           <div className="otherInfo">
             <div className="breed">Breed: {breed}</div>
-            <div className="vaccinated">Vaccinated: 
-            {{vaccinated}?"Yes" : "No"}</div>
+            <div className="vaccinated">
+              Vaccinated:
+              {{ vaccinated } ? "Yes" : "No"}
+            </div>
           </div>
         </div>
 
-        <div style = {{display: `${switchState? 'initial' : 'none'}`}} className="contactInfo">If found, please contact on:
-          <span className="contactPrimary"><FiPhoneCall className='callIcon'/>&nbsp; {contactNumber}</span>
-          <span className="contactSecondary"><FiPhoneCall className='callIcon'/> &nbsp; {alternateNumber}</span>
+        <div
+          style={{ display: `${switchState ? "flex" : "none"}` }}
+          className="contactInfo"
+        >
+          <span>If found, please contact on:</span>
+          <span className="contactPrimary">
+            <FiPhoneCall className="callIcon" />
+            &nbsp; {contactNumber}
+          </span>
+          <span className="contactSecondary">
+            <FiPhoneCall className="callIcon" /> &nbsp; {alternateNumber}
+          </span>
         </div>
       </div>
     </div>
