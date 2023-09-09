@@ -1,6 +1,6 @@
 import React, { useEffect,useState } from "react";
 import "../CSS/Message.css";
-import Logo from "../images/wigglesLogo.png";
+// import Logo from "../images/wigglesLogo.png";
 import { useCookies } from "react-cookie";
 import {FiPhoneCall} from "react-icons/fi";
 
@@ -89,16 +89,16 @@ export default function Message() {
       <div className="msgCard">
         <div className="header">
           <div className="logoInfoContainer">
-            <img src={Logo} alt="website-logo"></img>
+            {/* <img src={Logo} alt="website-logo"></img> */}
             <h3>Wiggles</h3>
           </div>
           <div className="status">Lost</div>
         </div>
         <div className="profileImg">
-          <img src={image} alt="Profile Image" className="userImg" />
+          <img src={image} alt="Profile Image" className="userImg profilePicture" />
         </div>
         <div className="petName">{name}</div>
-        <div className="petInfoPrimary">{gender} &nbsp; | &nbsp; {age} years</div>
+        <div className="petInfoPrimary">{gender}&nbsp;|&nbsp;{age} years</div>
         <div className="msgByOwner">
           {message}
         </div>
@@ -112,9 +112,9 @@ export default function Message() {
             {{vaccinated}?"Yes" : "No"}</div>
           </div>
         </div>
-        <div className="contactInfo">
-          <span className="contactPrimary">{contactNumber}</span>
-          <span className="contactSecondary">{alternateNumber}</span>
+        <div className="contactInfo">If found, please contact on:
+          <span className="contactPrimary"><FiPhoneCall className='callIcon'/>&nbsp; {contactNumber}</span>
+          <span className="contactSecondary"><FiPhoneCall className='callIcon'/> &nbsp; {alternateNumber}</span>
         </div>
       </div>
     </div>
