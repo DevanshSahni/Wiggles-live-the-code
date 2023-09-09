@@ -39,6 +39,14 @@ module.exports.Login = async (req, res, next)=>{
               secure: true,
               sameSite:'none',
           });
+         res.cookie("email", email, {
+        maxAge:1000*60*60*24*3, 
+        domain: 'https://wiggles-live-the-code.vercel.app',
+        withCredentials: true,
+        httpOnly: false,
+        secure: true,
+        sameSite:'none',
+    });
 
           return res.json({status:'ok'});
       }
@@ -78,6 +86,14 @@ module.exports.Register = async(req,res)=>{
     secure: true,
     sameSite:'none',
   });
+  res.cookie("email", email, {
+        maxAge:1000*60*60*24*3, 
+        domain: 'https://wiggles-live-the-code.vercel.app',
+        withCredentials: true,
+        httpOnly: false,
+        secure: true,
+        sameSite:'none',
+    });
 
   const foundUser=await UserModel.findOne({email:email});
   res.cookie("userID",foundUser.id,{
@@ -112,10 +128,11 @@ module.exports.SecondaryRegister= async(req,res) =>{
     const { name, dob, breed, gender, vaccinated, bio } = req.body;
     const imageFilePath = req.file.path;
     const cldRes = await handleUpload(imageFilePath);
-    const userID = req.cookies.userID;
+    const email = req.cookies.email;
 
     const newProfile = new ProfileModel({
       name,
+      email,
       dob,
       breed,
       gender,
