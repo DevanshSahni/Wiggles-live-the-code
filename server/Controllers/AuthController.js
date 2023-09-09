@@ -25,7 +25,7 @@ module.exports.Login = async (req, res, next)=>{
           });
           res.cookie("token", token, {
               maxAge:1000*60*60*24*3, 
-              domain: 'https://wiggles-live-the-code.vercel.app/',
+              domain: 'https://wiggles-live-the-code.vercel.app',
               withCredentials: true,
               httpOnly: false,
               secure: true,
@@ -33,7 +33,7 @@ module.exports.Login = async (req, res, next)=>{
           });
           res.cookie("userID",foundUser._id,{
               maxAge:1000*60*60*24*3, 
-              domain: 'https://wiggles-live-the-code.vercel.app/',
+              domain: 'https://wiggles-live-the-code.vercel.app',
               withCredentials: true,
               httpOnly: false,
               secure: true,
@@ -72,7 +72,7 @@ module.exports.Register = async(req,res)=>{
   });
   res.cookie("token", token, {
     maxAge:1000*60*60*24*3, 
-    domain: 'https://wiggles-live-the-code.vercel.app/',
+    domain: 'https://wiggles-live-the-code.vercel.app',
     withCredentials: true,
     httpOnly: false,
     secure: true,
@@ -83,7 +83,7 @@ module.exports.Register = async(req,res)=>{
   res.cookie("userID",foundUser.id,{
     maxAge:1000*60*60*24*3, 
     withCredentials: true,
-    domain: 'https://wiggles-live-the-code.vercel.app/',
+    domain: 'https://wiggles-live-the-code.vercel.app',
     httpOnly: false,
     secure: true,
     sameSite:'none',
