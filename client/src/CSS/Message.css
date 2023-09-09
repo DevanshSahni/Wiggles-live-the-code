@@ -134,8 +134,10 @@
     width: fit-content;
     margin: 10px 30px;
     /* display: none; */
+
     font-size: 12px;
     font-weight: 700;
+
 }
 
 .contactPrimary, .contactSecondary {

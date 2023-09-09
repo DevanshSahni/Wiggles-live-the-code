@@ -30,8 +30,9 @@ function App() {
         <Route path="/Profile" element={<Profile/> }/>
         <Route path="/EditProfile" element={<EditProfile/> }/>
         <Route path="/GenerateQR" element={<QRGenerator/> }/>
-        <Route path="/Message" element={<Message/> }/>
+        <Route path="/Message/:id" element={<Message/> }/>
         <Route path="/Vaccination" element={<Vaccination/>} />
+      
       </Routes>
       <Footer/>
       <ToastContainer/> 
