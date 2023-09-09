@@ -27,98 +27,88 @@ export default function QRGenerator() {
   const [authorized,setAuthorized]  = useState(false);
 
 
- const handleChange = async() => {
-
-  setSwitchState(!switchState);
-  setChecked(switchState);
- 
-  try{
-    
-    const response = await fetch("http://localhost:3001/qrSwitch",{
-      method:"POST",
-      body: JSON.stringify({
-        switchState:checked
-      }),
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json",
-      },
-    })
-    
-    const data = await response.json();
-  
-}catch(err){
-  console.log(err);
-}
-  
-};
-
   useEffect(()=>{
-    
-      const fetchData = async () => {
-        try{
-        const response = await fetch("http://localhost:3001/profiledata", {
-        method: "POST",
-        body: JSON.stringify({
-          userID,
-        }),
-        credentials: "include",
-        headers: {
-          "Content-type": "application/json",
-        },
-      })
-      let data = await response.json();
-      if (data.status === "ok") {
-        setName(data.foundUser.name);
-        setImage(data.foundUser.image);
-
+    const handleSwitch=async()=>{
+    try{
+        const response = await fetch("http://localhost:3001/qrSwitch",{
+          method:"POST",
+          body: JSON.stringify({
+            switchState
+          }),
+          credentials: "include",
+          headers: {
+            "Content-type": "application/json",
+          },
+        })
         
-      }else{
-        setAuthorized(false);
-        navigate("/login")
-      } 
-    }catch(err){
-      console.log(err)
+        const data = await response.json();
+      
+      }catch(err){
+        console.log(err);
+      }
     }
-    
-  };
-  fetchData();
+    handleSwitch();
+  }, [switchState])
 
-  },[userID])
-
-  useEffect(()=>{
-    const fetchData = async() =>{
+  useEffect(()=>{  
+    const fetchData = async () => {
+      try{
+        const response = await fetch("http://localhost:3001/profiledata", {
+          method: "POST",
+          body: JSON.stringify({
+            userID,
+          }),
+          credentials: "include",
+          headers: {
+            "Content-type": "application/json",
+          },
+        })
+        if(response.status==401){
+          navigate("/login");
+          return;
+        }
+        let data = await response.json();
+        if (data.status === "ok") {
+          setName(data.foundUser.name);
+          setImage(data.foundUser.image);  
+        }else{
+          toast.error("Please reload!");
+        } 
+      }catch(err){
+        console.log(err)
+      }
+      
+    };
+    const fetchState = async() =>{
       try{
         const response = await fetch("http://localhost:3001/qrData", {
-        method: "POST",
-        body: JSON.stringify({
-          userID,
-        }),
-        credentials: "include",
-        headers: {
-          "Content-type": "application/json",
-        },
-      })
-      let data = await response.json();
-      if (data.status === "ok") {
-        setContactNumber(data.foundUser.contactNumber);
-        setAlternateNumber(data.foundUser.alternateNumber);
-        setMessage(data.foundUser.message);
-        setSwitchState(data.foundUser.switchState);
-        // console.log(!switchState)
-      } 
-    }catch(err){
-      console.log(err)
-    }
+          method: "POST",
+          body: JSON.stringify({
+            userID,
+          }),
+          credentials: "include",
+          headers: {
+            "Content-type": "application/json",
+          },
+        })
+        let data = await response.json();
+        console.log(data);
+        if (data.status === "ok") {
+          setContactNumber(data.foundUser.contactNumber);
+          setAlternateNumber(data.foundUser.alternateNumber);
+          setMessage(data.foundUser.message);
+          setSwitchState(data.foundUser.switchState);
+        } 
+      }catch(err){
+        console.log(err)
+      }
     };
-    fetchData();
+  fetchData();
+  fetchState();
+
   },[userID])
 
-
-  const handleSubmit = async (event) =>{
-    event.preventDefault();
-
-    // if (!contactNumber.match(/^\d{10}$/)) {
+ // if (!contactNumber.match(/^\d{10}$/)) {
     //   toast.error("Please enter a valid 10-digit phone number.")
     //   return;
     // }
@@ -131,28 +121,24 @@ export default function QRGenerator() {
     //   return;
     // }
 
+  const handleSubmit = async (event) =>{
+    event.preventDefault();
     try{
-    
-        const response = await fetch("http://localhost:3001/qr-code",{
-          method:"POST",
-          body: JSON.stringify({
-            contactNumber,
-            alternateNumber,
-            message,
-            switchState:checked
-          }),
-          credentials: "include",
-          headers: {
-            "Content-type": "application/json",
-          },
-        })
-        toast.success("Successfully Updated.");
-        console.log(response);
-        const data = await response.json();
-      
+      const response = await fetch("http://localhost:3001/qr-code",{
+        method:"POST",
+        body: JSON.stringify({
+          contactNumber,
+          alternateNumber,
+          message
+        }),
+        credentials: "include",
+        headers: {
+          "Content-type": "application/json",
+        },
+      })
+      toast.success("Successfully Updated.");
     }catch(err){
       toast.error("There was an error. Kindly referesh the page and try again.");
-      console.log(err);
     }
   }
 
@@ -160,7 +146,6 @@ export default function QRGenerator() {
     const qrCodeURL = document.getElementById('qrCodeEl')
       .toDataURL("image/png")
       .replace("image/png", "image/octet-stream");
-    console.log(qrCodeURL)
     let aEl = document.createElement("a");
     aEl.href = qrCodeURL;
     aEl.download = `${name}`+"_Wiggles.png";
@@ -180,10 +165,9 @@ export default function QRGenerator() {
               <div className="messageTitle">
                 <h2>Lost Pet?</h2>
                 <div className="lostPet">
-                  {/* <span>Pet lost?</span> */}
                   <ReactSwitch
                     checked={switchState}
-                    onChange={handleChange}
+                    onChange={()=>{setSwitchState(!switchState)}}
                     onColor="#fed3a3"
                     onHandleColor="#ff8400"
                     handleDiameter={30}
@@ -258,7 +242,7 @@ export default function QRGenerator() {
                   id="qrCodeEl"
                   size={256}
                   style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                  value={"http://localhost:3000/message/"+userID}
+                  value={`${document.location.href + "/" + userID}`}
                   viewBox={`0 0 256 256`}
                   className="qrImg"
                 />
