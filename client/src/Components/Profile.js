@@ -41,6 +41,8 @@ const Profile = () => {
         toast.error(err);
       });
       let data = await response.json();
+      console.log(response);
+      console.log(data.foundUser);
       if (data.status === "ok") {
         setName(data.foundUser.name);
         setBreed(data.foundUser.breed);
