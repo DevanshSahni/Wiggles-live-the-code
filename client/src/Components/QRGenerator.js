@@ -4,8 +4,10 @@ import { useCookies } from "react-cookie";
 import Navbar from "../Components/Navbar";
 import ReactSwitch from "react-switch";
 import "../CSS/QRGenerator.css";
-import Logo from "../images/wigglesLogo.png";
+// import Logo from "../images/wigglesLogo.png";
 import { IoCloseSharp } from "react-icons/io5";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function QRGenerator() {
   const [cookies] = useCookies();
@@ -98,11 +100,12 @@ export default function QRGenerator() {
             "Content-type": "application/json",
           },
         })
-  
+        toast.success("Successfully Updated.");
         console.log(response);
         const data = await response.json();
       
     }catch(err){
+      toast.error("There was an error. Kindly referesh the page and try again.");
       console.log(err);
     }
   }
@@ -114,10 +117,11 @@ export default function QRGenerator() {
     console.log(qrCodeURL)
     let aEl = document.createElement("a");
     aEl.href = qrCodeURL;
-    aEl.download = "QR_Code.png";
+    aEl.download = `${name}`+"_Wiggles.png";
     document.body.appendChild(aEl);
     aEl.click();
     document.body.removeChild(aEl);
+    toast.success("Successfully Downloaded");
   }
 
   return (
@@ -160,7 +164,7 @@ export default function QRGenerator() {
                     onChange = {(event)=>{
                       setContactNumber(event.target.value)
                     }}
-                  />
+                    required/>
                 </label>
                 <label id="alternateContactno">
                   <input
@@ -172,7 +176,7 @@ export default function QRGenerator() {
                     onChange = {(event)=>{
                       setAlternateNumber(event.target.value)
                     }}
-                  />
+                    required/>
                 </label>
                 <label id="message">
                   <textarea
@@ -186,21 +190,19 @@ export default function QRGenerator() {
                     onChange = {(event)=>{
                       setMessage(event.target.value)
                     }}
-                  />
+                    required/>
                 </label>
 
-                <button className="uploadMsg" type="submit" onClick={handleSubmit}>
-                  Submit
+                <button className="btn uploadMsg" type="submit" onClick={handleSubmit}>
+                  Update
                   </button>                 
-                  {/* <button className="btn uploadMsg" type="submit">
-                Upload Message */}
 
                 
               </div>
             </form>
             <div className="qrContainerRight">
 
-              <img src={image} alt="Profile Image" className="userImg" />
+              <img src={image} alt="Profile Image" className="userImg profilePicture" />
               <div className="userName">{name}</div>
 
               <div
