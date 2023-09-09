@@ -1,9 +1,9 @@
 const mongoose = require ("mongoose");
 
 const QrSchema = new mongoose.Schema({
-    message:{type:String,required:true},
-    contactNumber:{type:Number,required:true},
-    alternateNumber:{type:Number,required:true},
+    message:{type:String},
+    contactNumber:{type:Number},
+    alternateNumber:{type:Number},
     switchState: { type: Boolean, default: false }  
 }) 
 
