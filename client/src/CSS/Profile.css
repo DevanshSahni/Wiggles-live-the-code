@@ -41,6 +41,11 @@
     cursor: pointer;
 }
 
+.generateQR {
+    position: relative;
+    top: 35px;
+}
+
 .editProfileWrapper {
     background-color: #ffffff38;
     position: fixed;
@@ -328,6 +333,12 @@
         width: 280px;
         padding: 10px 10px 30px 20px;
         border-radius: 30px;
+    }
+
+    .generateQR {
+        top: 20px;
+        font-size: 14px;
+        padding: 6px 10px;
     }
 
     .editProfileContainer {
