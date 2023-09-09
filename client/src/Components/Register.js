@@ -49,7 +49,7 @@ function Register() {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/register", {
+      const response = await fetch("https://vercel.com/devanshsahni/wiggles-live-the-code-backend/register", {
         method: "POST",
         body: JSON.stringify({
           phone,

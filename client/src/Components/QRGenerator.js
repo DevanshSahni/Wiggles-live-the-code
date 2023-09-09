@@ -30,7 +30,7 @@ export default function QRGenerator() {
   useEffect(()=>{
     const handleSwitch=async()=>{
     try{
-        const response = await fetch("http://localhost:3001/qrSwitch",{
+        const response = await fetch("https://vercel.com/devanshsahni/wiggles-live-the-code-backend/qrSwitch",{
           method:"POST",
           body: JSON.stringify({
             switchState
@@ -53,7 +53,7 @@ export default function QRGenerator() {
   useEffect(()=>{  
     const fetchData = async () => {
       try{
-        const response = await fetch("http://localhost:3001/profiledata", {
+        const response = await fetch("https://vercel.com/devanshsahni/wiggles-live-the-code-backend/profiledata", {
           method: "POST",
           body: JSON.stringify({
             userID,
@@ -81,7 +81,7 @@ export default function QRGenerator() {
     };
     const fetchState = async() =>{
       try{
-        const response = await fetch("http://localhost:3001/qrData", {
+        const response = await fetch("https://vercel.com/devanshsahni/wiggles-live-the-code-backend/qrData", {
           method: "POST",
           body: JSON.stringify({
             userID,
@@ -124,7 +124,7 @@ export default function QRGenerator() {
   const handleSubmit = async (event) =>{
     event.preventDefault();
     try{
-      const response = await fetch("http://localhost:3001/qr-code",{
+      const response = await fetch("https://vercel.com/devanshsahni/wiggles-live-the-code-backend/qr-code",{
         method:"POST",
         body: JSON.stringify({
           contactNumber,

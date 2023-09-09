@@ -36,7 +36,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("http://localhost:3001/profiledata", {
+      const response = await fetch("https://vercel.com/devanshsahni/wiggles-live-the-code-backend/profiledata", {
         method: "POST",
         body: JSON.stringify({
           userID,
