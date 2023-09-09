@@ -22,11 +22,36 @@ export default function QRGenerator() {
   const [alternateNumber,setAlternateNumber] = useState("")
   const [message,setMessage] = useState("")
   const [image, setImage] = useState("");
+  const [switchState,setSwitchState] = useState(false)
 
 
-  const handleChange = (val) => {
-    setChecked(val);
-  };
+ const handleChange = async(newCheckedState) => {
+
+  setChecked(newCheckedState); // Update the switch state
+  console.log(!checked);
+  setSwitchState(!switchState)
+ 
+  try{
+    
+    const response = await fetch("http://localhost:3001/qrSwitch",{
+      method:"POST",
+      body: JSON.stringify({
+        switchState:!checked
+      }),
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+
+    console.log(response);
+    const data = await response.json();
+  
+}catch(err){
+  console.log(err);
+}
+  
+};
 
   useEffect(()=>{
     
@@ -74,6 +99,8 @@ export default function QRGenerator() {
         setContactNumber(data.foundUser.contactNumber);
         setAlternateNumber(data.foundUser.alternateNumber);
         setMessage(data.foundUser.message)
+        setSwitchState(data.foundUser.switchState)
+        console.log(switchState)
       } 
     }catch(err){
       console.log(err)
@@ -94,6 +121,7 @@ export default function QRGenerator() {
             contactNumber,
             alternateNumber,
             message,
+            switchState:checked
           }),
           credentials: "include",
           headers: {
@@ -136,7 +164,7 @@ export default function QRGenerator() {
                 <div className="lostPet">
                   {/* <span>Pet lost?</span> */}
                   <ReactSwitch
-                    checked={checked}
+                    checked={switchState}
                     onChange={handleChange}
                     onColor="#fed3a3"
                     onHandleColor="#ff8400"
@@ -194,8 +222,8 @@ export default function QRGenerator() {
                 </label>
 
                 <button className="btn uploadMsg" type="submit" onClick={handleSubmit}>
-                  Update
-                  </button>                 
+                  Submit
+                </button>                 
 
                 
               </div>
@@ -212,7 +240,7 @@ export default function QRGenerator() {
                   id="qrCodeEl"
                   size={256}
                   style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                  value={"http://localhost:3000/lost/" + userID}
+                  value={"http://localhost:3000/message/"+userID}
                   viewBox={`0 0 256 256`}
                   className="qrImg"
                 />
