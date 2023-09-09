@@ -16,7 +16,7 @@ const Profile = () => {
   const [image, setImage] = useState("");
   const [bio, setBio] = useState("");
   const [address, setAddress] = useState("");
-  const [cookies] = useCookies();
+  const [cookies] = useCookies([]);
   const userID = cookies.userID;
   console.log(cookies);
 
