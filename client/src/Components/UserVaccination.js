@@ -23,7 +23,7 @@ const Vaccination = () => {
         const handleContent=async()=>{
             let response;
             try{
-                response= await fetch("https://vercel.com/devanshsahni/wiggles-live-the-code-backend/userdata",{
+                response= await fetch("https://wiggles-live-the-code-backend.vercel.app/userdata",{
                 method:"POST",
                 body: JSON.stringify({
                     userID:id,

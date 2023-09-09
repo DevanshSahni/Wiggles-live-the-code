@@ -45,7 +45,7 @@ const Vaccination = () => {
     useEffect(()=>{
         document.querySelector(".vaccinationContainer").addEventListener("click", (e)=>e.stopPropagation());
         const handleContent=async()=>{
-            const response= await fetch("https://vercel.com/devanshsahni/wiggles-live-the-code-backend/profiledata",{
+            const response= await fetch("https://wiggles-live-the-code-backend.vercel.app/profiledata",{
                 method:"POST",
                 body: JSON.stringify({
                     userID,
@@ -87,7 +87,7 @@ const Vaccination = () => {
             setEditIcon(!editIcon);
             return;
         }
-        const response= await fetch("https://vercel.com/devanshsahni/wiggles-live-the-code-backend/updateProfile",{
+        const response= await fetch("https://wiggles-live-the-code-backend.vercel.app/updateProfile",{
             method:"POST",
             body: JSON.stringify({
                 name:petName,
@@ -126,7 +126,7 @@ const Vaccination = () => {
             setAddVaccination(!addVaccination);
             return;
         }
-        const response= await fetch("https://vercel.com/devanshsahni/wiggles-live-the-code-backend/updateVaccinations",{
+        const response= await fetch("https://wiggles-live-the-code-backend.vercel.app/updateVaccinations",{
             method:"POST",
             body: JSON.stringify({
                 visit,

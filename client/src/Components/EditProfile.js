@@ -33,7 +33,7 @@ export default function EditProfile({
     formData.append("bio", bio);
     formData.append("address", address);
 
-    const response = await fetch("https://vercel.com/devanshsahni/wiggles-live-the-code-backend/updateProfile",{
+    const response = await fetch("https://wiggles-live-the-code-backend.vercel.app/updateProfile",{
         method:"POST",
         body:formData,
         credentials: "include",
