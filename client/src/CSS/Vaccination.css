@@ -1,23 +1,10 @@
 .vaccinationWrapper{
-    min-height: 800px;
+    min-height: 600px;
     margin: auto;
     margin-top: 100px;
     width: 45%;
     position: relative;
     min-width: 520px;
-}
-.shareIconContainer{
-    position: absolute;
-    right: -20px;
-    top:-20px;
-    height: 20px;
-    width: 20px;
-    font-size:20px;
-    cursor:pointer;
-    padding: 15px;
-    border-radius: 50%;
-    background-color: white;
-    z-index: 1;
 }
 .headerContainer{
     display: flex;
@@ -41,7 +28,6 @@
 .headerContainer div h3{
     margin: 0;
     font-size: 12px;
-    text-align: center;
     font-weight: 600;
     font-family: 'Shantell Sans', cursive;
 }
@@ -51,6 +37,25 @@
     font-size: 30px;
     font-weight: 600;
 }
+.shareIconContainer{
+    position: absolute;
+    right: -20px;
+    top:-20px;
+    height: 30px;
+    width: 30px;
+    font-size:23px;
+    cursor:pointer;
+    padding: 25px;
+    border-radius: 50%;
+    background-color: white;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.shareIcon{
+    position: absolute;
+}
 .healthInfoWrapper{
     position: relative;
     background-color: white;
@@ -58,18 +63,30 @@
     padding: 35px 50px;
     min-height: 400px;
 }
+.editButton{
+    position: absolute !important;
+    right: 50px !important;
+    top: 20px !important;
+}
+.editIcon, .addIcon{
+    font-size: 15px;
+}
+.dogWeight{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
 .HealthInfoContainer{
     margin-bottom: 50px;
 }
 .HealthInfoContainer h1, .vaccinationInfoPrimary h1{
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 650;
 }
 .dogHealthInfo, .vetInfo{
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
-
 .vaccinationContainer{
     margin: -10px -20px;
     padding: 10px 20px;
@@ -93,6 +110,8 @@
     color: #f6f1e9;
     font-size: 13px;
     font-weight: 550;
+    display: flex !important;
+    align-items: center;
 }
 #addVaccination:hover{
     transition: all 0.2s;
@@ -104,13 +123,15 @@
 .vaccinationContainer table{
     width: 100%;
 }
-.vaccinationContainer table,th,td,tr{
-    padding: 10px 0px;
+.vaccinationContainer table,th,td{
+    padding: 10px 2px;
     text-align: center;
     font-size: 15px;
     font-weight: 650;
+    border: 1px solid;
+    border-collapse: collapse;
 }
-td{
+.vaccinationContainer td{
     max-width: 60px;
 }
 
@@ -121,6 +142,13 @@ td{
     margin: 0px 5px;
     color: #3C2A21;
     border-bottom: #3C2A21 solid 1px;
+    text-transform: capitalize;
+    font-weight: 400;
+}
+.dogWeight input{
+    width: 20px;
+    padding-right: 0px;
+    margin-right: 0px;
 }
 
 .HealthInfoContainer input:disabled{
@@ -145,22 +173,33 @@ td{
 /* ShareVaccination */
 .sharePannel{
     position: absolute;
-    top: 10px;
-    right: -180px;
+    top: 15px;
+    right: -170px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     gap: 20px;
-    width: 150px;
+    width: 180px;
     text-align: center;
     padding: 20px;
-    transition: all 0.3s ease-in-out;
+    /* transition: visibility 0.3s ease-in-out; */
     background-color:rgba(214, 214, 214, 0.379);
+    z-index: 1;
+    overflow: hidden;
+    animation: slide 0.3s ease-in-out;
+}
+@keyframes slide{
+    from{ 
+        opacity: 0;
+    }
+    to{ 
+        opacity: 1 ;
+    }
 }
 
 .sharePannel div{
     background-color: #ffffffa8;
-    height: 20px;
+    height: 30px;
     display: flex;
     align-items: center;
     padding: 5px;
@@ -169,4 +208,94 @@ td{
 }
 .sharePannel a, .sharePannel button{
     all: unset;
+}
+
+@media (max-width:870px){
+    .sharePannel{
+        top: 10px;
+        right: 10px;
+        background-color: #c0c0c0;
+    }
+    .headerContainer h1{
+        font-size: 25px;
+    }
+}
+
+@media (max-width:580px){
+    .vaccinationWrapper{
+        width: 85%;
+        min-width: 300px;
+    }.headerContainer div img{
+        height: 35px;
+        width: 35px;
+        padding: 5px;
+    }
+    .headerContainer div h3{
+        font-size: 9px;
+    }
+    .headerContainer h1{
+        font-size: 20px;
+    }
+    .shareIconContainer{
+        padding: 20px;
+        font-size:15px;
+    }
+    .editButton{
+        right: 30px !important;
+        top: 10px !important;
+    }
+    .editIcon, .addIcon{
+        font-size: 12px;
+    }
+    .HealthInfoContainer{
+        margin-bottom: 30px;
+    }
+    .healthInfoWrapper{
+        padding: 35px 30px;
+    }
+    .HealthInfoContainer h1, .vaccinationInfoPrimary h1{
+        font-size: 12px;
+    }
+    .dogHealthInfo, .vetInfo{
+        display: flex;
+        flex-direction: column;
+    }
+    .vaccinationContainer{
+        margin: -5px -15px;
+        padding: 10px 15px;
+    }
+    #addVaccination{
+        all: unset;
+        cursor: pointer;
+        background-color: #3C2A21;
+        text-align: center;
+        padding: 8px 10px;
+        border-radius: 10px;
+        color: #f6f1e9;
+        font-size: 10px;
+    }
+    .vaccinationContainer table,th,td,tr{
+        padding: 8px 2px;
+        font-size: 11px;
+        font-weight: 650;
+    }
+    .addVaccinationForm td input{
+        font-size: 10px;
+    }
+    .dogWeight input{
+        width: 15px;
+        padding-right: 0px;
+    }
+}
+@media (max-width:400px){
+    .shareIconContainer{
+        padding: 15px;
+        font-size:10px;
+        right: -15px;
+        top:-10px;
+    }
+    .headerContainer h1{
+        font-size: 15px;
+    }
+
 }

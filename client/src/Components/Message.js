@@ -1,7 +1,9 @@
 import React, { useEffect,useState } from "react";
 import "../CSS/Message.css";
+
 import { useParams } from "react-router-dom";
 import Logo from "../images/wigglesLogo.png";
+
 import { useCookies } from "react-cookie";
 import {FiPhoneCall} from "react-icons/fi";
 
@@ -106,18 +108,20 @@ export default function Message() {
       <div className="msgCard">
         <div className="header">
           <div className="logoInfoContainer">
+
             <h3>Wiggles</h3>
           </div>
           
           <div style = {{display: `${switchState? 'initial' : 'none'}`}} className="status">Lost</div>
         </div>
         <div className="profileImg">
-          <img src={image} alt="Profile Image" className="userImg" />
+          <img src={image} alt="Profile Image" className="userImg profilePicture" />
         </div>
         <div className="petName">{name}</div>
-        <div className="petInfoPrimary">{gender} &nbsp; | &nbsp; {age} years</div>
+        <div className="petInfoPrimary">{gender}&nbsp;|&nbsp;{age} years</div>
 
         <div style = {{display: `${switchState? 'initial' : 'none'}`}} className="msgByOwner">
+
           {message}
         </div>
         <div className="petInfoSecondary">
@@ -130,9 +134,10 @@ export default function Message() {
             {{vaccinated}?"Yes" : "No"}</div>
           </div>
         </div>
-        <div style = {{display: `${switchState? 'initial' : 'none'}`}} className="contactInfo">
-          <span className="contactPrimary">{contactNumber}</span>
-          <span className="contactSecondary">{alternateNumber}</span>
+
+        <div style = {{display: `${switchState? 'initial' : 'none'}`}} className="contactInfo">If found, please contact on:
+          <span className="contactPrimary"><FiPhoneCall className='callIcon'/>&nbsp; {contactNumber}</span>
+          <span className="contactSecondary"><FiPhoneCall className='callIcon'/> &nbsp; {alternateNumber}</span>
         </div>
       </div>
     </div>
