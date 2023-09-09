@@ -24,7 +24,7 @@ export default function Message() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("http://localhost:3001/userdata", {
+      const response = await fetch("https://vercel.com/devanshsahni/wiggles-live-the-code-backend/userdata", {
         method: "POST",
         body: JSON.stringify({
           id,
