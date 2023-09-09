@@ -6,7 +6,7 @@ import Logo from "../images/wigglesLogo.png"
 import { BsShareFill } from 'react-icons/bs'
 import { useCookies } from 'react-cookie'
 import { toast } from 'react-toastify'
-import { AiOutlineEdit,  AiOutlinePlus, AiOutlineSave} from "react-icons/ai"
+import {AiOutlineEdit, AiOutlinePlus, AiOutlineSave, AiFillDelete} from "react-icons/ai"
 import { useNavigate } from 'react-router-dom'
 
 const Vaccination = () => {
@@ -35,6 +35,13 @@ const Vaccination = () => {
     const[editbtn, setEditbtn]=useState("Edit");
     const[editIcon,setEditIcon]=useState("0")
 
+    function onFocus(e){
+        e.currentTarget.type = "date";
+    }
+    function onBlur(e){
+        e.currentTarget.type = "text";
+        e.currentTarget.placeholder = "Date";
+    }
     useEffect(()=>{
         document.querySelector(".vaccinationContainer").addEventListener("click", (e)=>e.stopPropagation());
         const handleContent=async()=>{
@@ -149,7 +156,7 @@ const Vaccination = () => {
     <>
     <Navbar/>
     <div className='vaccinationWrapper'>
-        <div className="shareIconContainer" onClick={()=>show ? setShow(0):setShow(1)} style={{opacity: print ? 0:1}} ><BsShareFill className='shareIcon'/></div>
+        <div className="shareIconContainer" onClick={()=>show ? setShow(0):setShow(1)} style={{opacity: print ? 0:1}} ><BsShareFill/></div>
         <ShareVaccination show={show} print={print} setPrint={setPrint}/>
             <div className='headerContainer'>
                 <div className='logoInfoContainer'>
@@ -159,7 +166,7 @@ const Vaccination = () => {
                 <h1>PET HEALTH RECORD</h1>
             </div>
             <div className='healthInfoWrapper'>
-                <button id='addVaccination' className='editButton' onClick={handleEdit} style={{opacity: print ? 0:1}}> { editIcon ? <AiOutlineEdit className='editIcon'/> : <AiOutlineSave className='editIcon'/> }&nbsp;{editbtn}</button>
+                <button id='vaccinationButton' className='editButton' onClick={handleEdit} style={{opacity: print ? 0:1}}> { editIcon ? <AiOutlineEdit className='editIcon'/> : <AiOutlineSave className='editIcon'/> }&nbsp;{editbtn}</button>
                 <div className='HealthInfoContainer'>
                     <h1>Pet's name: 
                         <input 
@@ -188,7 +195,7 @@ const Vaccination = () => {
                                 placeholder="kg"
                             />
                         </h1>
-                        <h1>{(weight > 0)? "kg" : ""}</h1>
+                        <h1 className='dogWeightunit'>{(weight > 0)? "kg" : ""}</h1>
                         </div>
                         <h1>Allergies:
                             <input 
@@ -209,7 +216,8 @@ const Vaccination = () => {
                     </div>
                 </div>
                 <div className='HealthInfoContainer'>
-                    <h1>Veterinarian: 
+                    <h1 className='vetNameInfo'>Veterinarian: 
+                        <h1 className='vetHonorific'>Dr.</h1>
                         <input 
                             disabled={inactive}
                             type="text" 
@@ -240,25 +248,26 @@ const Vaccination = () => {
                 <div className='vaccinationContainer'>
                     <div className='vaccinationInfoPrimary'>
                         <h1>Vaccinations</h1>
-                        <button id="addVaccination" form="vaccinationForm" style={{opacity: print ? 0:1}}>{addVaccination ? <AiOutlineSave className='addIcon'/> :<AiOutlinePlus className='addIcon'/>}&nbsp;{addVaccination ? "Save" : "Add"} </button>  
+                        <button id="vaccinationButton" form="vaccinationForm" style={{opacity: print ? 0:1}}>{addVaccination ? <AiOutlineSave className='addIcon'/> :<AiOutlinePlus className='addIcon'/>}&nbsp;{addVaccination ? "Save" : "Add"} </button>  
                     </div>
                     <form name="Vaccination Form" id="vaccinationForm" onSubmit={handleAddVaccine} ></form>
                     <table className='vaccinationTable'>
                         <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Batch Number</th>
-                            <th>Date</th>
-                            <th>Next visit</th>
+                          <th>Name</th>
+                          <th>Batch Number</th>
+                          <th>Date</th>
+                          <th>Next visit</th>
+                          {/* {!editIcon && <th className='deletedVaccination'>Action</th>} */}
                         </tr>
                         </thead>
                         <tbody>
                         {addVaccination && 
                         <tr className='addVaccinationForm'>
                             <td><input required type="text" placeholder="Name" form="vaccinationForm" value={visit.name ?? ""} onChange={(e)=>setVisit((visit)=>({...visit, name:e.target.value}))}/></td>
-                            <td><input required type="number" placeholder="Batch number" form="vaccinationForm" value={visit.batchNumber ?? ""} onChange={(e)=>setVisit((visit)=>({...visit, batchNumber:e.target.value}))}/></td>
-                            <td><input required type='date' placeholder="Date" form="vaccinationForm" value={visit.date ?? ""} onChange={(e)=>setVisit((visit)=>({...visit, date:e.target.value}))}/></td>
-                            <td><input required type='date' placeholder="Next Visit" form="vaccinationForm" value={visit.dueDate ?? ""} onChange={(e)=>setVisit((visit)=>({...visit, dueDate:e.target.value}))}/></td>
+                            <td><input required type="number" placeholder="Batch no" form="vaccinationForm" value={visit.batchNumber ?? ""} onChange={(e)=>setVisit((visit)=>({...visit, batchNumber:e.target.value}))}/></td>
+                            <td><input required placeholder="Date" onFocus = {onFocus} onBlur={onBlur} form="vaccinationForm" value={visit.date ?? ""} onChange={(e)=>setVisit((visit)=>({...visit, date:e.target.value}))}/></td>
+                            <td><input required placeholder="Next Visit" onFocus = {onFocus} onBlur={onBlur} form="vaccinationForm" value={visit.dueDate ?? ""} onChange={(e)=>setVisit((visit)=>({...visit, dueDate:e.target.value}))}/></td>
                         </tr>
                         }
                         {vaccinations && 
@@ -268,6 +277,7 @@ const Vaccination = () => {
                                     <td>{vaccination.batchNumber}</td>
                                     <td>{vaccination.date.slice(0,10)}</td>
                                     <td>{vaccination.dueDate.slice(0,10)}</td>
+                                    {/* {!editIcon && <td><AiFillDelete className='addIcon'/></td>} */}
                                 </tr>
                             ))
                         }   
