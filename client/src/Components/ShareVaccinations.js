@@ -22,9 +22,10 @@ const Share=({show, print, setPrint})=>{
     const handleSave=async()=>{
         await setPrint(1);
         const card=document.querySelector('.vaccinationWrapper');
-        html2canvas(card).then((canvas)=>{
+
+        html2canvas(card, {scale:"3"}).then((canvas)=>{
             const data = canvas.toDataURL('img/png');
-            const doc = new jsPDF('p', 'mm', 'a4');
+            const doc = new jsPDF('p','px');
             const docWidth= doc.internal.pageSize.getWidth();
             const docHeight= doc.internal.pageSize.getHeight();
             doc.addImage(data, 'PNG', 0, 0, docWidth, docHeight);
@@ -32,6 +33,20 @@ const Share=({show, print, setPrint})=>{
         })
         setPrint(0);
     }
+    // Multi page layout (To be checked)
+        // var position = 0;
+        // const docWidth= 210;
+        // var docHeight = 450;
+        // var heightLeft = docHeight;
+        // var pageHeight = 295;  
+        // heightLeft -= pageHeight;
+        
+        // while (heightLeft >= 0) {
+        //     position = heightLeft-docHeight;
+        //     doc.addPage();
+        //     doc.addImage(data, 'PNG', 0, position, docWidth, docHeight);
+        //     heightLeft -= pageHeight;
+        // }
 
     return(
         <div className='sharePannel' style={{display: (show && !print) ? "flex":"none"}}>
