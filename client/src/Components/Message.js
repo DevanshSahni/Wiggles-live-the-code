@@ -23,7 +23,7 @@ export default function Message() {
   const [gender, setGender] = useState("");
   const [image, setImage] = useState("");
   const [bio, setBio] = useState("");
-  const [vaccinated, setVaccinated] = useState("");
+  const [vaccinated, setVaccinated] = useState(false);
   const [contactNumber, setContactNumber] = useState("");
   const [alternateNumber, setAlternateNumber] = useState("");
   const [message, setMessage] = useState("");
@@ -139,8 +139,8 @@ export default function Message() {
             <div className="breed">Breed: {breed}</div>
             <div className="vaccinated">
               Vaccinated:
-              {{ vaccinated } ? "Yes" : "No"}
-            </div>
+              { vaccinated  ? "Yes" : "No"}
+            </div> 
           </div>
         </div>
 

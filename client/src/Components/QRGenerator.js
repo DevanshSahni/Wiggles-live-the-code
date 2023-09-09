@@ -28,25 +28,28 @@ export default function QRGenerator() {
   const [authorized,setAuthorized]  = useState(false)
 
 
- const handleChange = async(newCheckedState) => {
+ const handleChange = async() => {
 
-  setChecked(newCheckedState); // Update the switch state
-  // console.log(!checked);
-  setSwitchState(!switchState)
+  // setChecked(newCheckedState); // Update the switch state
+  // // console.log(!checked);
+  // setSwitchState(!switchState)
+
+  setSwitchState(!switchState);
+  setChecked(switchState);
  
   try{
     
     const response = await fetch("http://localhost:3001/qrSwitch",{
       method:"POST",
       body: JSON.stringify({
-        switchState:!checked
+        switchState:checked
       }),
       credentials: "include",
       headers: {
         "Content-type": "application/json",
       },
     })
-    console.log(!switchState)
+    console.log(switchState)
 
     console.log(response);
     const data = await response.json();
@@ -122,18 +125,18 @@ export default function QRGenerator() {
   const handleSubmit = async (event) =>{
     event.preventDefault();
 
-    if (!contactNumber.match(/^\d{10}$/)) {
-      toast.error("Please enter a valid 10-digit phone number.")
-      return;
-    }
-    if (!alternateNumber.match(/^\d{10}$/)) {
-      toast.error("Please enter a valid 10-digit phone number.")
-      return;
-    }
-    if(message === ""){
-      toast.error("Please enter a valid message.")
-      return;
-    }
+    // if (!contactNumber.match(/^\d{10}$/)) {
+    //   toast.error("Please enter a valid 10-digit phone number.")
+    //   return;
+    // }
+    // if (!alternateNumber.match(/^\d{10}$/)) {
+    //   toast.error("Please enter a valid 10-digit phone number.")
+    //   return;
+    // }
+    // if(message === ""){
+    //   toast.error("Please enter a valid message.")
+    //   return;
+    // }
 
     try{
     
