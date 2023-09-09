@@ -9,6 +9,7 @@ const VaccinationSchema= new mongoose.Schema({
 
 const ProfileSchema = new mongoose.Schema({
     name:{type:String,required:true},
+    email:{ type:String},
     dob:{type:Date},
     breed:{type:String,required:true},
     gender:{type:String,required:true},
