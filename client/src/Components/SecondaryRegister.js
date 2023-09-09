@@ -58,7 +58,7 @@ const SecondaryRegister = () => {
       formData.append("image", image); // Append the image file to the FormData
       formData.append("bio", text);
 
-      const response = await fetch("https://vercel.com/devanshsahni/wiggles-live-the-code-backend/secondaryregister", {
+      const response = await fetch("https://wiggles-live-the-code-backend.vercel.app/secondaryregister", {
         method: "POST",
         body: formData,
         credentials: "include",
