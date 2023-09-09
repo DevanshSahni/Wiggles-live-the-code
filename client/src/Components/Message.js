@@ -1,13 +1,21 @@
 import React, { useEffect,useState } from "react";
 import "../CSS/Message.css";
+import { useParams } from "react-router-dom";
 import Logo from "../images/wigglesLogo.png";
 import { useCookies } from "react-cookie";
 import {FiPhoneCall} from "react-icons/fi";
 
 
 export default function Message() {
-  const [cookies] = useCookies();
-  const userID = cookies.userID;
+  // const [cookies] = useCookies();
+  // const userID = cookies.userID;
+  // const urlParams = new URLSearchParams(window.location.search);
+  // const urlUserID = urlParams.get("id");
+  const { id } = useParams();
+
+  console.log(id)
+  
+
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [dob, setDob] = useState("");
@@ -19,6 +27,7 @@ export default function Message() {
   const [contactNumber,setContactNumber] = useState("")
   const [alternateNumber,setAlternateNumber] = useState("")
   const [message,setMessage] = useState("")
+  const [switchState,setSwitchState] = useState(false)
 
 
 
@@ -27,7 +36,7 @@ export default function Message() {
       const response = await fetch("http://localhost:3001/profiledata", {
         method: "POST",
         body: JSON.stringify({
-          userID,
+          id,
         }),
         credentials: "include",
         headers: {
@@ -35,6 +44,7 @@ export default function Message() {
         },
       });
       let data = await response.json();
+      // console.log(data)
       if (data.status === "ok") {
         setName(data.foundUser.name);
         setBreed(data.foundUser.breed);
@@ -55,7 +65,7 @@ export default function Message() {
       }
     };
     fetchData();
-  }, [userID]);
+  }, [id]);
 
 
   useEffect(()=>{
@@ -64,7 +74,7 @@ export default function Message() {
             const response = await fetch("http://localhost:3001/qrData", {
             method: "POST",
             body: JSON.stringify({
-              userID,
+              id,
             }),
             credentials: "include",
             headers: {
@@ -76,34 +86,42 @@ export default function Message() {
             setContactNumber(data.foundUser.contactNumber);
             setAlternateNumber(data.foundUser.alternateNumber);
             setMessage(data.foundUser.message)
+            setSwitchState(data.foundUser.switchState)
           } 
+          console.log(data)
         }catch(err){
           console.log(err)
         }
     };
     fetchData();
-  },[userID])
+  },[id])
 
+  useEffect(()=>{
+
+  },[])
+
+  console.log(switchState);
   return (
     <div className="msgWindow">
       <div className="msgCard">
         <div className="header">
           <div className="logoInfoContainer">
-            <img src={Logo} alt="website-logo"></img>
             <h3>Wiggles</h3>
           </div>
-          <div className="status">Lost</div>
+          
+          <div style = {{display: `${switchState? 'initial' : 'none'}`}} className="status">Lost</div>
         </div>
         <div className="profileImg">
           <img src={image} alt="Profile Image" className="userImg" />
         </div>
         <div className="petName">{name}</div>
         <div className="petInfoPrimary">{gender} &nbsp; | &nbsp; {age} years</div>
-        <div className="msgByOwner">
+
+        <div style = {{display: `${switchState? 'initial' : 'none'}`}} className="msgByOwner">
           {message}
         </div>
         <div className="petInfoSecondary">
-          <div className="bio">
+          <div style = {{display: `${switchState? 'none' : 'initial'}`}} className="bio">
             {bio}
           </div>
           <div className="otherInfo">
@@ -112,7 +130,7 @@ export default function Message() {
             {{vaccinated}?"Yes" : "No"}</div>
           </div>
         </div>
-        <div className="contactInfo">
+        <div style = {{display: `${switchState? 'initial' : 'none'}`}} className="contactInfo">
           <span className="contactPrimary">{contactNumber}</span>
           <span className="contactSecondary">{alternateNumber}</span>
         </div>
