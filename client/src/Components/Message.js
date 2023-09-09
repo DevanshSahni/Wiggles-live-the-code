@@ -8,14 +8,7 @@ import { useCookies } from "react-cookie";
 import { FiPhoneCall } from "react-icons/fi";
 
 export default function Message() {
-  // const [cookies] = useCookies();
-  // const userID = cookies.userID;
-  // const urlParams = new URLSearchParams(window.location.search);
-  // const urlUserID = urlParams.get("id");
   const { id } = useParams();
-
-  console.log(id);
-
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [dob, setDob] = useState("");
@@ -42,7 +35,6 @@ export default function Message() {
         },
       });
       let data = await response.json();
-      // console.log(data)
       if (data.status === "ok") {
         setName(data.foundUser.name);
         setBreed(data.foundUser.breed);
@@ -50,7 +42,6 @@ export default function Message() {
         setImage(data.foundUser.image);
         setBio(data.foundUser.bio);
         setVaccinated(data.foundUser.vaccinated);
-        // setAddress(data.foundUser.address);
         var today = new Date();
         var dob = new Date(data.foundUser.dob);
         setDob(data.foundUser.dob.slice(0, 10));
@@ -114,7 +105,7 @@ export default function Message() {
           <img
             src={image}
             alt="Profile Image"
-            className="userImg profilePicture"
+            className="userImage profilePicture"
           />
         </div>
         <div className="petName">{name}</div>
