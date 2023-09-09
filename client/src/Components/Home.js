@@ -10,7 +10,7 @@ const Home = () => {
             if (!cookies.token) {
               navigate("/Login");
             }
-            const response = await fetch('https://vercel.com/devanshsahni/wiggles-live-the-code-backend/',{
+            const response = await fetch('https://wiggles-live-the-code-backend.vercel.app/',{
                 method:"POST",
                 credentials:'include',
                 headers: {
