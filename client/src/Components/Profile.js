@@ -18,6 +18,7 @@ const Profile = () => {
   const [address, setAddress] = useState("");
   const [cookies] = useCookies();
   const userID = cookies.userID;
+  console.log(cookies);
 
   const [openEditProfile, setOpenEditProfile] = useState(false);
 
