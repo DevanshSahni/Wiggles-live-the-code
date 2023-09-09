@@ -340,3 +340,16 @@
     }
 
 }
+
+/* for userVaccination */
+.HealthInfoContainer h1 span, .vaccinationInfoPrimary h1 span{
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: capitalize;
+    padding-left: 3px;
+}
+@media (max-width: 580px){
+    .HealthInfoContainer h1 span, .vaccinationInfoPrimary h1 span{
+        font-size: 12px;
+    }
+}
