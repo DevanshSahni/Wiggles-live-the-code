@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors({
     origin : "https://wiggles-live-the-code.vercel.app",
     methods : ["GET", "POST"],
-    credentials: true
+    credentials: true,
 }));
 
 mongoose.connect(
