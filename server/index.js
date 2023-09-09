@@ -10,7 +10,7 @@ const app=express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors({
-    origin : ["https://wiggles-live-the-code.vercel.app"],
+    origin : "*",
     methods : ["GET", "POST"],
     credentials: true
 }));
