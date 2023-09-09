@@ -6,7 +6,8 @@ module.exports.profileData = async(req,res)=>{
   const userID=req.cookies.userID;
   const userName="Gin";
   console.log(req.cookies.userID);
-  const foundUser=await ProfileModel.findOne({_id:userID});
+  console.log("hello");
+  const foundUser=await ProfileModel.findOne({id: userID});
   // const foundUser= await ProfileModel.findOne({name: userName});
   // if(foundUser)
     res.json({status:"ok", foundUser});
