@@ -36,11 +36,6 @@
   line-height: 50px;
 }
 
-.messageTitle .lostPet span {
-  margin-right: 12px;
-  font-size: 16px;
-}
-
 .react-switch {
     position: relative;
     top: 6px;
@@ -61,7 +56,7 @@
   border-bottom: 2px solid #ff8400;
   margin-bottom: 20px;
   font-size: 16px;
-  width: 100%;
+  width: calc(100% - 40px);
   height: 40px;
   transition: 0.2s ease-in-out;
   color: #3c2a21;
@@ -128,28 +123,33 @@ color: #ff8400;
   max-height: 100%;
 }
 
+.fullScreen {
+  position: fixed;
+  top: 40px;
+  left: 0;
+  min-width: 100%;
+  height: 100%;
+  background: #ffffff01;
+  backdrop-filter: blur(15px);
+}
+
 .fullScreen .qrImg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+  position: relative;
+    scale: 0.5;
+    width: min-content;
     object-fit: contain;
     z-index: 999;
-    background: #ffffff01;
-    backdrop-filter: blur(30px);
-    padding: 150px 50px;
-    animation: growQR 0.5s ease-in;
+    animation: growQR 0.3s ease-in;
   }
 
   @keyframes growQR {
-    5% {
+    1% {
         opacity: 0;
-        padding: 200px 50px;
+        scale: 0.3;
     }
     100% {
         opacity: 1;
-        padding: 150px 50px;
+        scale: 0.5;
     }
 }
 
@@ -224,4 +224,18 @@ color: #ff8400;
     .qrContainerRight{
         max-width: 100%;
     }
+}
+
+@media (max-width: 450px) {
+
+  .messageTitle {
+    padding: 0;
+  }
+  .messageTitle h2 {
+    font-size: 28px;
+}
+
+  .msgForm {
+    padding: 0px;
+  }
 }

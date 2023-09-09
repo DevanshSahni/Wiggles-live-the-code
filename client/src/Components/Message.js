@@ -127,9 +127,9 @@ export default function Message() {
             {bio}
           </div>
           <div className="otherInfo">
-            <div className="breed">Breed: {breed}</div>
+            <div className="breed">Breed:&nbsp;{breed}</div>
             <div className="vaccinated">
-              Vaccinated:
+              Vaccinated:&nbsp;
               { vaccinated  ? "Yes" : "No"}
             </div> 
           </div>
