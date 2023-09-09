@@ -15,8 +15,9 @@ router.post('/register', Register)
 router.post('/secondaryregister', upload.single("image"), SecondaryRegister)
 
 router.post('/profiledata',userVerification,profileData)
+router.post('/userdata',profileData)
 router.post('/updateProfile',upload.single("image"),UpdateProfile);
-router.post('/updateVaccinations',UpdateVaccinations);
+router.post('/updateVaccinations',userVerification, UpdateVaccinations);
 
 
 router.post('/qrData',QrData)

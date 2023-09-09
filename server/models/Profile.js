@@ -25,7 +25,7 @@ const ProfileSchema = new mongoose.Schema({
     conditions: {type: String},
     vetName: {type: String},
     vetNumber: {type: Number},
-    vetaddress: {type: String},
+    vetAddress: {type: String},
     vaccinations: [{type: VaccinationSchema}]
 }) 
 

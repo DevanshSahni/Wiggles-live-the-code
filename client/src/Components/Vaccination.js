@@ -6,10 +6,13 @@ import Logo from "../images/wigglesLogo.png"
 import { BsShareFill } from 'react-icons/bs'
 import { useCookies } from 'react-cookie'
 import { toast } from 'react-toastify'
-import {AiOutlineCheck, AiOutlineEdit, AiOutlineFileDone, AiOutlinePlus, AiOutlineSave} from "react-icons/ai"
+import { AiOutlineEdit,  AiOutlinePlus, AiOutlineSave} from "react-icons/ai"
+import { useNavigate } from 'react-router-dom'
 
 const Vaccination = () => {
+    const navigate = useNavigate();
     const[show, setShow]=useState(0);
+    const[print, setPrint]=useState(false);
     const[cookies]=useCookies();
     const userID= cookies.userID;
     const[petName, setPetName]=useState("");
@@ -45,6 +48,10 @@ const Vaccination = () => {
                     "Content-type": "application/json",
                 }
             })
+            if(response.status==401){
+                navigate("/login")
+                return;
+            }
 
             if(!response.ok){
                 toast.error("Please refresh");
@@ -63,7 +70,7 @@ const Vaccination = () => {
             setVaccinations(data.foundUser.vaccinations);
         }
         handleContent();
-    }, [addVaccination]);
+    }, [addVaccination, userID]);
 
     const handleEdit=async(e)=>{
         e.preventDefault();
@@ -95,7 +102,6 @@ const Vaccination = () => {
             toast.error("Please refresh");
             return;
         }
-        const data= await response.json();
 
         toast.success("Successfully updated!");
         setInactive(true);
@@ -128,7 +134,6 @@ const Vaccination = () => {
             toast.error("Please refresh");
             return;
         }
-        const data= await response.json();
 
         toast.success("Successfully updated!");
         setAddVaccination(!addVaccination);
@@ -144,8 +149,8 @@ const Vaccination = () => {
     <>
     <Navbar/>
     <div className='vaccinationWrapper'>
-        <div className="shareIconContainer" onClick={()=>show ? setShow(0):setShow(1)} ><BsShareFill className='shareIcon'/></div>
-        <ShareVaccination show={show}/>
+        <div className="shareIconContainer" onClick={()=>show ? setShow(0):setShow(1)} style={{opacity: print ? 0:1}} ><BsShareFill className='shareIcon'/></div>
+        <ShareVaccination show={show} print={print} setPrint={setPrint}/>
             <div className='headerContainer'>
                 <div className='logoInfoContainer'>
                     <img src={Logo} alt="website-logo"></img>
@@ -154,7 +159,7 @@ const Vaccination = () => {
                 <h1>PET HEALTH RECORD</h1>
             </div>
             <div className='healthInfoWrapper'>
-                <button id='addVaccination' className='editButton' onClick={handleEdit}> { editIcon ? <AiOutlineEdit className='editIcon'/> : <AiOutlineSave className='editIcon'/> }&nbsp;{editbtn}</button>
+                <button id='addVaccination' className='editButton' onClick={handleEdit} style={{opacity: print ? 0:1}}> { editIcon ? <AiOutlineEdit className='editIcon'/> : <AiOutlineSave className='editIcon'/> }&nbsp;{editbtn}</button>
                 <div className='HealthInfoContainer'>
                     <h1>Pet's name: 
                         <input 
@@ -169,7 +174,7 @@ const Vaccination = () => {
                             <input 
                                 disabled={inactive}
                                 type="text" 
-                                value={breed}
+                                value={breed ?? ""}
                                 onChange={(e)=>{setBreed(e.target.value)}}
                             />
                         </h1>
@@ -178,7 +183,7 @@ const Vaccination = () => {
                             <input 
                                 disabled={inactive}
                                 type="number" 
-                                value={weight}
+                                value={weight ?? ""}
                                 onChange={(e)=>{setWeight(e.target.value)}}
                                 placeholder="kg"
                             />
@@ -189,7 +194,7 @@ const Vaccination = () => {
                             <input 
                                 disabled={inactive}
                                 type="text" 
-                                value={allergies }
+                                value={allergies ?? ""}
                                 onChange={(e)=>{setAllergies(e.target.value)}}
                             />
                         </h1>
@@ -197,7 +202,7 @@ const Vaccination = () => {
                             <input 
                                 disabled={inactive}
                                 type="text" 
-                                value={conditions}
+                                value={conditions  ?? ""}
                                 onChange={(e)=>{setConditions(e.target.value)}}
                             />
                         </h1>
@@ -208,7 +213,7 @@ const Vaccination = () => {
                         <input 
                             disabled={inactive}
                             type="text" 
-                            value={vetName}
+                            value={vetName ?? ""}
                             onChange={(e)=>{setVetName(e.target.value)}}
                         />
                     </h1>
@@ -217,7 +222,7 @@ const Vaccination = () => {
                             <input 
                                 disabled={inactive}
                                 type="number" 
-                                value={vetNumber}
+                                value={vetNumber ?? ""}
                                 maxLength={10}
                                 onChange={(e)=>{setVetNumber(e.target.value)}}
                             />
@@ -226,7 +231,7 @@ const Vaccination = () => {
                             <input 
                                 disabled={inactive}
                                 type="text" 
-                                value={vetAddress}
+                                value={vetAddress ?? ""}
                                 onChange={(e)=>{setVetAddress(e.target.value)}}
                             />
                         </h1>
@@ -235,34 +240,38 @@ const Vaccination = () => {
                 <div className='vaccinationContainer'>
                     <div className='vaccinationInfoPrimary'>
                         <h1>Vaccinations</h1>
-                        <button id="addVaccination" form="vaccinationForm" onClick={handleClick}>{addVaccination ? <AiOutlineSave className='addIcon'/> :<AiOutlinePlus className='addIcon'/>}&nbsp;{addVaccination ? "Save" : "Add"} </button>  
+                        <button id="addVaccination" form="vaccinationForm" style={{opacity: print ? 0:1}}>{addVaccination ? <AiOutlineSave className='addIcon'/> :<AiOutlinePlus className='addIcon'/>}&nbsp;{addVaccination ? "Save" : "Add"} </button>  
                     </div>
                     <form name="Vaccination Form" id="vaccinationForm" onSubmit={handleAddVaccine} ></form>
                     <table className='vaccinationTable'>
+                        <thead>
                         <tr>
-                        <th>Name</th>
-                        <th>Batch Number</th>
-                        <th>Date</th>
-                        <th>Next visit</th>
+                            <th>Name</th>
+                            <th>Batch Number</th>
+                            <th>Date</th>
+                            <th>Next visit</th>
                         </tr>
+                        </thead>
+                        <tbody>
                         {addVaccination && 
                         <tr className='addVaccinationForm'>
-                            <td><input required type="text" placeholder="Name" form="vaccinationForm" value={visit.name} onChange={(e)=>setVisit((visit)=>({...visit, name:e.target.value}))}/></td>
-                            <td><input required type="number" placeholder="Batch number" form="vaccinationForm" value={visit.batchNumber} onChange={(e)=>setVisit((visit)=>({...visit, batchNumber:e.target.value}))}/></td>
-                            <td><input required type='date' placeholder="Date" form="vaccinationForm" value={visit.date} onChange={(e)=>setVisit((visit)=>({...visit, date:e.target.value}))}/></td>
-                            <td><input required type='date' placeholder="Next Visit" form="vaccinationForm" value={visit.dueDate} onChange={(e)=>setVisit((visit)=>({...visit, dueDate:e.target.value}))}/></td>
+                            <td><input required type="text" placeholder="Name" form="vaccinationForm" value={visit.name ?? ""} onChange={(e)=>setVisit((visit)=>({...visit, name:e.target.value}))}/></td>
+                            <td><input required type="number" placeholder="Batch number" form="vaccinationForm" value={visit.batchNumber ?? ""} onChange={(e)=>setVisit((visit)=>({...visit, batchNumber:e.target.value}))}/></td>
+                            <td><input required type='date' placeholder="Date" form="vaccinationForm" value={visit.date ?? ""} onChange={(e)=>setVisit((visit)=>({...visit, date:e.target.value}))}/></td>
+                            <td><input required type='date' placeholder="Next Visit" form="vaccinationForm" value={visit.dueDate ?? ""} onChange={(e)=>setVisit((visit)=>({...visit, dueDate:e.target.value}))}/></td>
                         </tr>
                         }
                         {vaccinations && 
                             vaccinations.map((vaccination)=>(
-                                <tr>
-                                <td>{vaccination.name}</td>
-                                <td>{vaccination.batchNumber}</td>
-                                <td>{vaccination.date.slice(0,10)}</td>
-                                <td>{vaccination.dueDate.slice(0,10)}</td>
+                                <tr key={vaccination._id}>
+                                    <td>{vaccination.name}</td>
+                                    <td>{vaccination.batchNumber}</td>
+                                    <td>{vaccination.date.slice(0,10)}</td>
+                                    <td>{vaccination.dueDate.slice(0,10)}</td>
                                 </tr>
                             ))
                         }   
+                        </tbody>
                     </table>
                 </div>
             </div>

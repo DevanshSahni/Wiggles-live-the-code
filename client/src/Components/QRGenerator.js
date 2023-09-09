@@ -189,9 +189,9 @@ export default function QRGenerator() {
                   />
                 </label>
 
-                <button className="uploadMsg" type="submit" onClick={handleSubmit}>
+                <button className="btn uploadMsg" type="submit" onClick={handleSubmit}>
                   Submit
-                  </button>                 
+                </button>                 
                   {/* <button className="btn uploadMsg" type="submit">
                 Upload Message */}
 
