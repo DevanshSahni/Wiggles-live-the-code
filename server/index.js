@@ -23,6 +23,11 @@ app.get("/", (req,res)=>{
     res.send("Backend is running");
 })
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+});
+
 app.use("/", authRoute); 
 
 
