@@ -9,7 +9,7 @@ module.exports.profileData = async(req,res)=>{
   // const foundUser=await ProfileModel.findOne({_id:userID});
   const foundUser= await ProfileModel.findOne({name: userName});
   // if(foundUser)
-    res.json({status:"ok", found});
+    res.json({status:"ok", foundUser});
   // else{
   //   res.json({status: "fail"});
   // }
