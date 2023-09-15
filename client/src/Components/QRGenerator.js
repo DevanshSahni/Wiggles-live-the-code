@@ -11,8 +11,9 @@ import { useNavigate } from "react-router-dom";
 
 export default function QRGenerator() {
   const navigate = useNavigate();
-  const [cookies] = useCookies();
-  const userID = cookies.userID;
+  // const [cookies] = useCookies();
+  // const userID = cookies.userID;
+  const[userID, setUserId]=useState("")
   const [checked, setChecked] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const toggleFullScreen = () => {
@@ -71,6 +72,7 @@ export default function QRGenerator() {
         if (data.status === "ok") {
           setName(data.foundUser.name);
           setImage(data.foundUser.image);  
+          setUserId(data.foundUser._id);  
         }else{
           toast.error("Please reload!");
         } 
