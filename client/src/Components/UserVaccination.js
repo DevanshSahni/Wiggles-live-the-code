@@ -26,7 +26,7 @@ const Vaccination = () => {
                 response= await fetch("https://wiggles-live-the-code-backend.vercel.app/userdata",{
                 method:"POST",
                 body: JSON.stringify({
-                    userID:id,
+                    id,
                 }),
                 credentials:"include",
                 headers:{
