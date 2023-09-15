@@ -13,8 +13,9 @@ const Vaccination = () => {
     const navigate = useNavigate();
     const[show, setShow]=useState(0);
     const[print, setPrint]=useState(false);
-    const[cookies]=useCookies();
-    const userID= cookies.userID;
+    // const[cookies]=useCookies();
+    // const userID= cookies.userID;
+    const[userID, setUserID]=useState("")
     const[petName, setPetName]=useState("");
     const[breed, setBreed]=useState("");
     const[weight, setWeight]=useState("");
@@ -65,7 +66,7 @@ const Vaccination = () => {
                 return;
             }
             const data= await response.json();
-
+            setUserID(data.foundUser._id);
             setPetName(data.foundUser.name);
             setBreed(data.foundUser.breed);
             setWeight(data.foundUser.weight);
@@ -157,7 +158,7 @@ const Vaccination = () => {
     <Navbar/>
     <div className='vaccinationWrapper'>
         <div className="shareIconContainer" onClick={()=>show ? setShow(0):setShow(1)} style={{opacity: print ? 0:1}} ><BsShareFill/></div>
-        <ShareVaccination show={show} print={print} setPrint={setPrint}/>
+        <ShareVaccination show={show} print={print} setPrint={setPrint} userID={userID}/>
             <div className='headerContainer'>
                 <div className='logoInfoContainer'>
                     <img src={Logo} alt="website-logo"></img>

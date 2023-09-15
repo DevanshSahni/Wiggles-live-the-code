@@ -6,10 +6,10 @@ import html2canvas from 'html2canvas';
 import {jsPDF }from 'jspdf';
 import { useCookies } from 'react-cookie';
 
-const Share=({show, print, setPrint})=>{
+const Share=({show, print, setPrint, userID})=>{
     const[copyText, setCopyText]=useState("Copy link")
-    const[cookies]=useCookies();
-    const userID=cookies.userID;
+    // const[cookies]=useCookies();
+    // const userID=cookies.userID;
 
     const handleCopyLink=()=>{
         navigator.clipboard.writeText(document.location.href + "/" +userID);

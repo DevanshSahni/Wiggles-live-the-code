@@ -56,7 +56,7 @@ const Vaccination = () => {
             setVaccinations(data.foundUser.vaccinations);
         }
         handleContent();
-    },);
+    },[id]);
 
 
 
