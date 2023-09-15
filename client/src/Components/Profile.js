@@ -16,9 +16,8 @@ const Profile = () => {
   const [image, setImage] = useState("");
   const [bio, setBio] = useState("");
   const [address, setAddress] = useState("");
-  const [cookies, setCookie] = useCookies(['userID']);
+  const [cookies] = useCookies();
   const userID = cookies.userID;
-  console.log(cookies);
 
   const [openEditProfile, setOpenEditProfile] = useState(false);
 
@@ -27,7 +26,6 @@ const Profile = () => {
 
   useEffect(()=>{
     const fetchData = async () =>{
-      console.log(userID);
       const response = await fetch('https://wiggles-live-the-code-backend.vercel.app/profiledata',{
         method:"POST",
         body:JSON.stringify({
@@ -41,8 +39,6 @@ const Profile = () => {
         toast.error(err);
       });
       let data = await response.json();
-      console.log(response);
-      console.log(data.foundUser);
       if (data.status === "ok") {
         setName(data.foundUser.name);
         setBreed(data.foundUser.breed);
