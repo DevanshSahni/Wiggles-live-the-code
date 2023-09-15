@@ -27,6 +27,7 @@ module.exports.Login = async (req, res, next)=>{
               maxAge:1000*60*60*24*3, 
               withCredentials: true,
               httpOnly: false,
+              domain: wiggles-live-the-code.vercel.app,
               secure: true,
               sameSite:'none',
           });
@@ -34,6 +35,7 @@ module.exports.Login = async (req, res, next)=>{
               maxAge:1000*60*60*24*3, 
               withCredentials: true,
               httpOnly: false,
+              domain: wiggles-live-the-code.vercel.app,
               secure: true,
               sameSite:'none',
           });
