@@ -25,7 +25,6 @@ module.exports.Login = async (req, res, next)=>{
           });
           res.cookie("token", token, {
               maxAge:1000*60*60*24*3, 
-              domain: 'https://wiggles-live-the-code.vercel.app',
               withCredentials: true,
               httpOnly: false,
               secure: true,
@@ -33,20 +32,11 @@ module.exports.Login = async (req, res, next)=>{
           });
           res.cookie("userID",foundUser._id,{
               maxAge:1000*60*60*24*3, 
-              domain: 'https://wiggles-live-the-code.vercel.app',
               withCredentials: true,
               httpOnly: false,
               secure: true,
               sameSite:'none',
           });
-         res.cookie("email", email, {
-        maxAge:1000*60*60*24*3, 
-        domain: 'https://wiggles-live-the-code.vercel.app',
-        withCredentials: true,
-        httpOnly: false,
-        secure: true,
-        sameSite:'none',
-    });
 
           return res.json({status:'ok'});
       }
@@ -80,26 +70,16 @@ module.exports.Register = async(req,res)=>{
   });
   res.cookie("token", token, {
     maxAge:1000*60*60*24*3, 
-    domain: 'https://wiggles-live-the-code.vercel.app',
     withCredentials: true,
     httpOnly: false,
     secure: true,
     sameSite:'none',
   });
-  res.cookie("email", email, {
-        maxAge:1000*60*60*24*3, 
-        domain: 'https://wiggles-live-the-code.vercel.app',
-        withCredentials: true,
-        httpOnly: false,
-        secure: true,
-        sameSite:'none',
-    });
 
   const foundUser=await UserModel.findOne({email:email});
   res.cookie("userID",foundUser.id,{
     maxAge:1000*60*60*24*3, 
     withCredentials: true,
-    domain: 'https://wiggles-live-the-code.vercel.app',
     httpOnly: false,
     secure: true,
     sameSite:'none',
@@ -128,17 +108,17 @@ module.exports.SecondaryRegister= async(req,res) =>{
     const { name, dob, breed, gender, vaccinated, bio } = req.body;
     const imageFilePath = req.file.path;
     const cldRes = await handleUpload(imageFilePath);
-    const email = req.cookies.email;
+    const userID = req.cookies.userID;
 
     const newProfile = new ProfileModel({
       name,
-      email,
       dob,
       breed,
       gender,
       vaccinated,
       image: cldRes.secure_url,
-      bio,
+      bio,  
+      id: userID, 
     });
     await newProfile.save();
 
