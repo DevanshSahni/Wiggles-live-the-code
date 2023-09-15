@@ -2,9 +2,8 @@ const ProfileModel = require("../models/Profile");
 
 // To get data of a single profile based on userID
 module.exports.profileData = async(req,res)=>{    
-  const email=req.cookies.email;
-  console.log(req.cookies.email);
-  const foundUser=await ProfileModel.findOne({email: email});
+  const userID=req.body.userID || req.body.id;
+  const foundUser=await ProfileModel.findOne({_id:userID});
   if(foundUser)
     res.json({status:"ok", foundUser});
   else{
@@ -13,14 +12,14 @@ module.exports.profileData = async(req,res)=>{
 }
 
 module.exports.UpdateVaccinations= async(req,res)=>{
-  const email=req.cookies.email;
+  const userID=req.cookies.userID;
 
-  const foundUser=await ProfileModel.findOne({email:email}, {vaccinations:1});
+  const foundUser=await ProfileModel.findOne({_id:userID}, {vaccinations:1});
 
   const userVaccinations=foundUser.vaccinations;
   userVaccinations.unshift(req.body.visit);
   const updatedProfile = await ProfileModel.updateOne(
-    {email: email},
+    {_id: userID},
     { $set: {vaccinations: userVaccinations} },
   );
 
@@ -33,7 +32,7 @@ module.exports.UpdateProfile = async(req,res) =>{
     const {height, weight, allergies, conditions, vetName, vetNumber, vetAddress} = req.body;
     // const imageFilePath = req.file.path;
     // const cldRes = await handleUpload(imageFilePath);
-    const email = req.cookies.email;
+    const userID = req.cookies.userID;
 
     const updatedFields = {
       name,
@@ -53,7 +52,7 @@ module.exports.UpdateProfile = async(req,res) =>{
     };
 
     const updatedProfile = await ProfileModel.updateOne(
-      {email: email},
+      {_id: userID},
       { $set: updatedFields },
       { new: true }
     );
