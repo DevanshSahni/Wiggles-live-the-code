@@ -2,7 +2,9 @@ const ProfileModel = require("../models/Profile");
 
 // To get data of a single profile based on userID
 module.exports.profileData = async(req,res)=>{    
-  const userID=req.body.userID || req.body.id;
+  // const userID=req.body.userID || req.body.id;
+  const userID="65048092cf3e4f20e56abdf8";
+
   const foundUser=await ProfileModel.findOne({_id:userID});
   if(foundUser)
     res.json({status:"ok", foundUser});
