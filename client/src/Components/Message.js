@@ -58,7 +58,7 @@ export default function Message() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3001/qrData", {
+        const response = await fetch("https://wiggles-live-the-code-backend.vercel.app/qrData", {
           method: "POST",
           body: JSON.stringify({
             id,
