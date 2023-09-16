@@ -46,10 +46,9 @@ export default function Footer() {
           <div className="support-wiggles">
             <h3 className="footer-heading">Support</h3>
             <div className={(userID) ? "supportLogin" : "supportLogout"}>              
-              {(userID) && 
               <div className="support-links" onClick={logout}>
                 Logout
-              </div>}
+              </div>
             </div>
           </div>
         </div>
